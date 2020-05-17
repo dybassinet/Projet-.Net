@@ -27,7 +27,7 @@ namespace Model.Entities
         /// <summary>
         /// Valeur de la note
         /// </summary>
-        public int valeurNote { get; set; }
+        public int ValeurNote { get; set; }
 
         /// <summary>
         /// Identifiant de l'élève noté

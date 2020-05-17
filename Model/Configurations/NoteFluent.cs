@@ -30,7 +30,7 @@ namespace Model.Configurations
                 .HasColumnName("Note_Date")
                 .IsRequired();
 
-            Property(e => e.valeurNote)
+            Property(e => e.ValeurNote)
                 .HasColumnName("Note_Valeur")
                 .IsRequired();
 
