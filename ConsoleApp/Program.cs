@@ -1,5 +1,7 @@
-﻿using Model;
+﻿using BusinessLayer;
+using Model;
 using Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,8 +11,12 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            ContexteDA monContexte = new ContexteDA();
-            List<Classe> classes = monContexte.Classes.ToList();
+            Manager manager = Manager.Instance;
+            List<Classe> classes = manager.GetAllClasses();
+            foreach (Classe classe in classes)
+            {
+                Console.WriteLine(classe.NomEtablissement);
+            }
         }
     }
 }

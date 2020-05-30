@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+      <Project>{f59365ab-1b42-437c-a6a9-c85b258fc10b}</Project>
+      <Name>BusinessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{463ac0b3-2a7e-4a24-bf92-a6d1545e17e7}</Project>
       <Name>Model</Name>
