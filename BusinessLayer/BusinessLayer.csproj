@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\EleveCommand.cs" />
+    <Compile Include="Commands\NoteCommand.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\AbsenceQuery.cs" />
@@ -58,9 +60,7 @@
     <Compile Include="Queries\EleveQuery.cs" />
     <Compile Include="Queries\NoteQuery.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{463ac0b3-2a7e-4a24-bf92-a6d1545e17e7}</Project>

@@ -14,7 +14,7 @@ namespace Model.Configurations
             Property(e => e.EleveId)
                 .HasColumnName("Eleve_Id")
                 .IsRequired()
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(e => e.Nom)
                 .HasColumnName("Eleve_Nom")

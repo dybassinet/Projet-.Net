@@ -20,7 +20,7 @@ namespace BusinessLayer.Queries
         /// <returns>Liste d'entités <see cref="Eleve"/></returns>
         public List<Eleve> GetAll()
         {
-            return _contexte.Eleves.ToList();
+            return _contexte.Eleves.OrderBy(e => e.Nom).ToList();
         }
 
         /// <summary>

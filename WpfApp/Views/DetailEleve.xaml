@@ -8,15 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -27,6 +23,16 @@
             <TextBox Text="{Binding Nom}"></TextBox>
             <Label>Prénom de l'élève</Label>
             <TextBox Text="{Binding Prenom}"></TextBox>
+            <Label>Date de naissance de l'élève</Label>
+            <DatePicker Margin="44,26,52,0" SelectedDate="{Binding DateNaissance}"/>
+            <Label>Moyenne de l'élève</Label>
+            <TextBox IsReadOnly="True" Text="{Binding Moyenne}"></TextBox>
+            <Button Margin="5" FontSize="12px" Command="{Binding AddNoteOperation}">+</Button>
+            <Label Visibility="{Binding Visibility}">Note à ajouter</Label>
+            <TextBox Visibility="{Binding Visibility}" Text="{Binding NouvelleNote}"></TextBox>
+            <Label>Nombre d'absences de l'élève</Label>
+            <TextBox IsReadOnly="True" Text="{Binding NbAbsences}"></TextBox>
         </StackPanel>
+        <Button Grid.Column="0" Grid.Row="2" Margin="5" FontSize="12px" Command="{Binding EditOperation}">Modifier</Button>
     </Grid>
 </UserControl>

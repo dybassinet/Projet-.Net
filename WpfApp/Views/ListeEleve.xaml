@@ -18,7 +18,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Column="0"  Grid.Row="0" Grid.RowSpan="3" Margin="5px" ItemsSource="{Binding Eleves, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedEleve, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+        <ListView Grid.Column="0"  Grid.Row="0" Grid.RowSpan="3" Margin="5px" ItemsSource="{Binding Eleves, UpdateSourceTrigger=PropertyChanged }" SelectedItem="{Binding SelectedEleve, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="100px" Header="Nom" DisplayMemberBinding="{Binding Nom}" />
@@ -27,6 +27,6 @@
             </ListView.View>
         </ListView>
 
-        <my:DetailEleve DataContext="{Binding SelectedEleve, UpdateSourceTrigger=PropertyChanged}"></my:DetailEleve>
+        <my:DetailEleve DataContext="{Binding SelectedEleve, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="0,0,5,10" Grid.RowSpan="3"/>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Queries;
+﻿using BusinessLayer.Commands;
+using BusinessLayer.Queries;
 using Model;
 using Model.Entities;
 using System;
@@ -84,6 +85,12 @@ namespace BusinessLayer
             return result;
         }
 
+        public void EditEleve(Eleve eleve)
+        {
+            EleveCommand eleveCommand = new EleveCommand(monContexte);
+            eleveCommand.Edit(eleve);
+        }
+
         #endregion
 
         #region Notes
@@ -123,6 +130,29 @@ namespace BusinessLayer
             return result;
         }
 
+        /// <summary>
+        /// Permet d'obtenir la moyenne de l'élève
+        /// </summary>
+        /// <param name="eleveId">Identifiant de l'élève</param>
+        /// <returns></returns>
+        public double GetAverageByEleveId(int eleveId)
+        {
+            NoteQuery query = new NoteQuery(monContexte);
+            List<Note> result = query.GetByEleveId(eleveId);
+            if (result.Count() == 0)
+            {
+                return 0;
+            }
+
+            return result.Average(n => n.ValeurNote);
+        }
+
+        public void AddNote(Note note)
+        {
+            NoteCommand noteCommand = new NoteCommand(monContexte);
+            noteCommand.Add(note);
+        }
+
         #endregion
 
         #region Absences
@@ -160,6 +190,18 @@ namespace BusinessLayer
             AbsenceQuery query = new AbsenceQuery(monContexte);
             List<Absence> result = query.GetByEleveId(eleveId);
             return result;
+        }
+
+        /// <summary>
+        /// Retourne le nombre d'absences d'un élève
+        /// </summary>
+        /// <param name="eleveId">Identifiant de l'élève</param>
+        /// <returns></returns>
+        public int GetNbAbsencesByEleveId(int eleveId)
+        {
+            AbsenceQuery query = new AbsenceQuery(monContexte);
+            List<Absence> result = query.GetByEleveId(eleveId);
+            return result.Count();
         }
 
         #endregion
