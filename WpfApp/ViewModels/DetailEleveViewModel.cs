@@ -26,8 +26,12 @@ namespace WpfApp.ViewModels
         private DateTime _dateNaissance;
         private RelayCommand _editOperation;
         private RelayCommand _showAddNoteOperation;
+        private RelayCommand _addNoteOperation;
         private string _visibility;
-        private int _nouvelleNote;
+        private string _nouvelleNoteValeur;
+        private string _nouvelleNoteMatiere;
+        private DateTime _nouvelleNoteDate;
+        private string _nouvelleNoteAppreciation;
 
         #endregion
 
@@ -46,6 +50,7 @@ namespace WpfApp.ViewModels
             _moyenne = Manager.Instance.GetAverageByEleveId(eleve.EleveId);
             _nbAbsences = Manager.Instance.GetNbAbsencesByEleveId(eleve.EleveId);
             _visibility = "Hidden";
+            _nouvelleNoteDate = DateTime.Now.Date;
         }
 
         #endregion
@@ -81,7 +86,11 @@ namespace WpfApp.ViewModels
         public double Moyenne
         {
             get { return _moyenne; }
-            set { _moyenne = value; }
+            set
+            {
+                _moyenne = value;
+                OnPropertyChanged("Moyenne");
+            }
         }
 
         public int NbAbsences
@@ -106,10 +115,28 @@ namespace WpfApp.ViewModels
             }
         }
 
-        public int NouvelleNote
+        public string NouvelleNoteValeur
         {
-            get { return _nouvelleNote; }
-            set { _nouvelleNote = value; }
+            get { return _nouvelleNoteValeur; }
+            set { _nouvelleNoteValeur = value; }
+        }
+
+        public string NouvelleNoteMatiere
+        {
+            get { return _nouvelleNoteMatiere; }
+            set { _nouvelleNoteMatiere = value; }
+        }
+
+        public DateTime NouvelleNoteDate
+        {
+            get { return _nouvelleNoteDate; }
+            set { _nouvelleNoteDate = value; }
+        }
+
+        public string NouvelleNoteAppreciation
+        {
+            get { return _nouvelleNoteAppreciation; }
+            set { _nouvelleNoteAppreciation = value; }
         }
 
         #endregion
@@ -142,6 +169,19 @@ namespace WpfApp.ViewModels
             }
         }
 
+        public ICommand AddNoteOperation
+        {
+            get
+            {
+                if (_addNoteOperation == null)
+                {
+                    _addNoteOperation = new RelayCommand(() => this.AddNote(_nouvelleNoteMatiere, _nouvelleNoteDate, _nouvelleNoteAppreciation, _nouvelleNoteValeur));
+                }
+
+                return _addNoteOperation;
+            }
+        }
+
         private void EditEleve(Eleve eleve)
         {
             eleve.Nom = Nom;
@@ -153,6 +193,15 @@ namespace WpfApp.ViewModels
         private void ShowAddNote()
         {
             Visibility = "Visible";
+        }
+
+        private void AddNote(string matiere, DateTime date, string appreciation, string valeur)
+        {
+            int valeurNote = int.Parse(valeur);
+            Note note = new Note { Matiere = matiere, DateNote = date, Appreciation = appreciation, ValeurNote = valeurNote, EleveId = _eleve.EleveId };
+            Manager.Instance.AddNote(note);
+            Moyenne = Manager.Instance.GetAverageByEleveId(_eleve.EleveId);
+            Visibility = "Hidden";
         }
 
         #endregion
