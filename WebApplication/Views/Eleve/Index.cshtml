@@ -1,0 +1,36 @@
+﻿@using WebApplication.Models;
+@model List<EleveViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+<div id="content">
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+        </tr>
+        @foreach(EleveViewModel vm in Model)
+        {
+            <tr>
+                <td>@vm.Nom</td>
+                <td>@vm.Prenom</td>
+                <td><button onclick="getEleve(@vm.EleveId)">Detail</button></td>
+            </tr>
+        }
+    </table>
+</div>
+
+<script>
+    function getEleve(eleveId) {
+        var serviceURL = '/Eleve/DetailEleve';
+        $.ajax({
+            url: serviceURL,
+            data: {
+                eleveId: eleveId,
+            },
+            success: function (data) {
+                $("#content").html(data);
+            }
+        });
+    }
+</script>
