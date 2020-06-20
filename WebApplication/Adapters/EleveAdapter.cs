@@ -1,5 +1,6 @@
 ﻿using Model.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using WebApplication.Models;
 
 namespace WebApplication.Adapters
@@ -8,6 +9,9 @@ namespace WebApplication.Adapters
     {
         public EleveViewModel ConvertToViewModel(Eleve eleve)
         {
+            AbsenceAdapter absenceAdapter = new AbsenceAdapter();
+            NoteAdapter noteAdapter = new NoteAdapter();
+
             if (eleve == null)
             {
                 return null;
@@ -19,7 +23,9 @@ namespace WebApplication.Adapters
                 Nom = eleve.Nom,
                 Prenom = eleve.Prenom,
                 DateNaissance = eleve.DateNaissance,
-                ClassId = eleve.ClassId
+                ClassId = eleve.ClassId,
+                Absences = absenceAdapter.ConvertToViewModels(eleve.Absences.ToList()),
+                Notes = noteAdapter.ConvertToViewModels(eleve.Notes.ToList())
             };
 
             return vm;
@@ -27,6 +33,9 @@ namespace WebApplication.Adapters
 
         public List<EleveViewModel> ConvertToViewModels(List<Eleve> eleves)
         {
+            AbsenceAdapter absenceAdapter = new AbsenceAdapter();
+            NoteAdapter noteAdapter = new NoteAdapter();
+
             var vms = new List<EleveViewModel>();
             if (eleves == null)
             {
@@ -41,7 +50,9 @@ namespace WebApplication.Adapters
                     Nom = eleve.Nom,
                     Prenom = eleve.Prenom,
                     DateNaissance = eleve.DateNaissance,
-                    ClassId = eleve.ClassId
+                    ClassId = eleve.ClassId,
+                    /*Absences = absenceAdapter.ConvertToViewModels(eleve.Absences.ToList()),
+                    Notes = noteAdapter.ConvertToViewModels(eleve.Notes.ToList())*/
                 };
 
                 vms.Add(vm);

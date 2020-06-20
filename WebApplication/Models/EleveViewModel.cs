@@ -40,11 +40,11 @@ namespace WebApplication.Models
         /// <summary>
         /// Collection des notes de l'élève
         /// </summary>
-        //public ICollection<NoteViewModel> Notes { get; set; }
+        public ICollection<NoteViewModel> Notes { get; set; }
 
         /// <summary>
         /// Collection des absences de l'élève
         /// </summary>
-        //public ICollection<AbsenceViewModel> Absences { get; set; }
+        public ICollection<AbsenceViewModel> Absences { get; set; }
     }
 }

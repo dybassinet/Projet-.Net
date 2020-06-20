@@ -1,8 +1,44 @@
 ﻿@using WebApplication.Models;
 @model EleveViewModel
-@{
-    ViewBag.Title = "DetailEleve";
-}
 
-<h2>@Model.Nom - @Model.Prenom : @Model.DateNaissance</h2>
 
+<h2>@Model.Nom - @Model.Prenom</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Date de l'absence</th>
+        <th>Motif</th>
+        <th><button class="btn btn-primary">Ajouter absence</button></th>
+    </tr>
+    @foreach (AbsenceViewModel vm in Model.Absences)
+    {
+        <tr>
+            <td>@vm.DateAbsence.ToString("dd/MM/yyyy")</td>
+            <td>@vm.Motif</td>
+        </tr>
+    }
+</table>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Date de la note</th>
+        <th>Matière</th>
+        <th>Note</th>
+        <th>Appréciation</th>
+        <th><button class="btn btn-primary">Ajouter note</button></th>
+    </tr>
+    @foreach (NoteViewModel vm in Model.Notes)
+    {
+        <tr>
+            <td>@vm.DateNote.ToString("dd/MM/yyyy")</td>
+            <td>@vm.Matiere</td>
+            <td>@vm.ValeurNote</td>
+            <td>@vm.Appreciation</td>
+        </tr>
+    }
+</table>
+
+@*@Html.ListBoxFor(m => m.Absences,
+                new SelectList(Model.Absences, "AbsenceId", "Motif"))
+
+@Html.ListBoxFor(m => m.Notes, new SelectList(Model.Notes, "NoteId", ""))*@

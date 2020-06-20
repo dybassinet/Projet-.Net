@@ -26,7 +26,7 @@ namespace WebApplication.Controllers
             Eleve eleve = Manager.Instance.GetEleveById(eleveId);
             EleveAdapter eleveAdapter = new EleveAdapter();
             EleveViewModel vm = eleveAdapter.ConvertToViewModel(eleve);
-            return View("DetailEleve", vm);
+            return PartialView("DetailEleve", vm);
         }
     }
 }

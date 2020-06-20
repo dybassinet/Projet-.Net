@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Entities;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace BusinessLayer.Queries
@@ -30,7 +31,7 @@ namespace BusinessLayer.Queries
         /// <returns>Entité <see cref="Eleve"/></returns>
         public Eleve GetById(int id)
         {
-            return _contexte.Eleves.Where(e => e.EleveId == id).SingleOrDefault();
+            return _contexte.Eleves.Where(e => e.EleveId == id).Include(m => m.Absences).Include(m => m.Notes).SingleOrDefault();
         }
     }
 }
