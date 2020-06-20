@@ -65,11 +65,12 @@ namespace BusinessLayer
         /// <summary>
         /// Retourne tous les élèves
         /// </summary>
+        /// <param name="criterias">critères de recherche</param>
         /// <returns>Liste d'entités <see cref="Eleve"/></returns>
-        public List<Eleve> GetAllEleves()
+        public List<Eleve> GetAllEleves(String criterias)
         {
             EleveQuery query = new EleveQuery(monContexte);
-            List<Eleve> result = query.GetAll();
+            List<Eleve> result = query.GetAll(criterias);
             return result;
         }
 

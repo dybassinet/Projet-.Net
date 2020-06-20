@@ -3,9 +3,13 @@
 @{
     ViewBag.Title = "Index";
 }
+@Scripts.Render("~/bundles/jquery")
 
 <div id="content">
-    @Html.TextBox("searchEleve", "", new { @class = "form-group", placeholder = "Rechercher un élève" })
+    <div class="row form-group">
+        @Html.TextBox("searchEleve", "", new { @class = "form-control", placeholder = "Rechercher un élève" })
+        <button onclick='rechercher($("#searchEleve").val())' class="btn btn-primary">Rechercher</button>
+    </div>
     <table class="table table-bordered">
         <tr>
             <th>Nom</th>
@@ -40,7 +44,14 @@
         });
     }
 
-    function delay(callback, ms) {
+    function rechercher(criterias) {
+        url = '@Url.Action("Index", "Eleve", new { criterias = "__criterias__" })';
+        url = url.replace("__criterias__", criterias);
+        console.log(url);
+        location.href = url;
+    }
+
+    @*function delay(callback, ms) {
         var timer = 0;
         return function () {
             var context = this, args = arguments;
@@ -52,8 +63,11 @@
     }
 
     $(document).ready(function () {
-        $("#searchEleve").on(delay(function () {
-            console.log('Time elapsed!', this.value);
+        $("#searchEleve").on("keyup", delay(function () {
+            url = '@Url.Action("Index", "Eleve", new { criterias = "__criterias__" })';
+            url = url.replace("__criterias__", $("#searchEleve").val());
+            console.log(url);
+            location.href = url;
         }, 500))
-    });
+    });*@
 </script>

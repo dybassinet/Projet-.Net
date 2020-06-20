@@ -1,0 +1,44 @@
+﻿@using WebApplication.Models;
+@model ClasseViewModel
+
+
+<h2>@Model.NomEtablissement - @Model.Niveau</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Date de naissance</th>
+    </tr>
+    @foreach (EleveViewModel vm in Model.Eleves)
+    {
+    <tr>
+        <td>@vm.Nom</td>
+        <td>@vm.Prenom</td>
+        <td>@vm.DateNaissance.ToString("dd/MM/yyyy")</td>
+        <td><button onclick="getEleve(@vm.EleveId)" class="btn btn-primary">Detail</button></td>
+    </tr>
+    }
+</table>
+
+<script>
+
+    function getEleve(eleveId) {
+        var serviceURL = '/Eleve/DetailEleve';
+        $.ajax({
+            url: serviceURL,
+            data: {
+                eleveId: eleveId,
+            },
+            success: function (data) {
+                console.log(data);
+                $("#content").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+</script>
+

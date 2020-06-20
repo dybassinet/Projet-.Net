@@ -1,5 +1,6 @@
 ﻿using Model.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using WebApplication.Models;
 
 namespace WebApplication.Adapters
@@ -8,6 +9,7 @@ namespace WebApplication.Adapters
     {
         public ClasseViewModel ConvertToViewModel(Classe classe)
         {
+            EleveAdapter eleveAdapter = new EleveAdapter();
             if (classe == null)
             {
                 return null;
@@ -17,7 +19,8 @@ namespace WebApplication.Adapters
             {
                 ClassId = classe.ClassId,
                 NomEtablissement = classe.NomEtablissement,
-                Niveau = classe.Niveau
+                Niveau = classe.Niveau,
+                Eleves = eleveAdapter.ConvertToViewModels(classe.Eleves.ToList())
             };
 
             return vm;

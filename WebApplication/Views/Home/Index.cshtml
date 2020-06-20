@@ -2,8 +2,13 @@
     ViewBag.Title = "Home Page";
 }
 
+<div class="col-sm-12">
+    <a href='@Url.Action("Index", "Eleve", new { criterias = String.Empty })'>Liste des élèves</a>
+</div>
+<div class="col-sm-12">
+    <a href='@Url.Action("Index", "Classe")'>Liste des classes</a>
+</div>
 
-<a href='@Url.Action("Index", "Eleve")'>Liste des élèves</a>
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>

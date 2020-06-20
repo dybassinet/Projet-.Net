@@ -2,8 +2,18 @@
 @model EleveViewModel
 
 
-<h2>@Model.Nom - @Model.Prenom</h2>
-
+<div class="form-group">
+    @Html.Label("Nom : ", new { @class = "col-sm-4"})
+    @Html.TextBoxFor(m => m.Nom, new { @class = "col-sm-8 form-control" })
+</div>
+<div class="form-group">
+    @Html.Label("Prénom : ", new { @class = "col-sm-4" })
+    @Html.TextBoxFor(m => m.Prenom, new { @class = "col-sm-8 form-control" })
+</div>
+<div class="form-group">
+    @Html.Label("Moyenne : ", new { @class = "col-sm-4" })
+    @Html.TextBoxFor(m => m.Moyenne, new { @class = "col-sm-8 form-control" })
+</div>
 <table class="table table-bordered">
     <tr>
         <th>Date de l'absence</th>

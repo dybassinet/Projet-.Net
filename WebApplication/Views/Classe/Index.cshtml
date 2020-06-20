@@ -1,0 +1,43 @@
+﻿@using WebApplication.Models;
+@model List<ClasseViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+@Scripts.Render("~/bundles/jquery")
+
+<div id="content">
+    <table class="table table-bordered">
+        <tr>
+            <th>Nom établissement</th>
+            <th>Niveau de la classe</th>
+        </tr>
+        @foreach (ClasseViewModel vm in Model)
+        {
+            <tr>
+                <td>@vm.NomEtablissement</td>
+                <td>@vm.Niveau</td>
+                <td><button onclick="getEleve(@vm.ClassId)" class="btn btn-primary">Detail</button></td>
+            </tr>
+        }
+    </table>
+</div>
+
+<script>
+    function getEleve(classId) {
+        var serviceURL = '/Classe/DetailClasse';
+        $.ajax({
+            url: serviceURL,
+            data: {
+                classId: classId,
+            },
+            success: function (data) {
+                console.log(data);
+                $("#content").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+</script>

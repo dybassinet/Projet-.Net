@@ -18,10 +18,17 @@ namespace BusinessLayer.Queries
         /// <summary>
         /// Retourne tous les élèves
         /// </summary>
+        /// <param name="criterias">critères de recherche</param>
         /// <returns>Liste d'entités <see cref="Eleve"/></returns>
-        public List<Eleve> GetAll()
+        public List<Eleve> GetAll(string criterias)
         {
-            return _contexte.Eleves.OrderBy(e => e.Nom).ToList();
+            IQueryable<Eleve> query = _contexte.Eleves;
+            if (!string.IsNullOrEmpty(criterias))
+            {
+                query = query.Where(e => e.Nom.ToUpper().Contains(criterias.ToUpper()) || e.Prenom.ToUpper().Contains(criterias.ToUpper()));
+            }
+
+            return query.OrderBy(e => e.Nom).ToList();
         }
 
         /// <summary>

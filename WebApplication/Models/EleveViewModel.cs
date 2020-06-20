@@ -33,6 +33,11 @@ namespace WebApplication.Models
         public int ClassId { get; set; }
 
         /// <summary>
+        /// Moyenne de l'élève
+        /// </summary>
+        public double Moyenne { get; set; }
+
+        /// <summary>
         /// Classe
         /// </summary>
         //public ClasseViewModel Classe { get; set; }

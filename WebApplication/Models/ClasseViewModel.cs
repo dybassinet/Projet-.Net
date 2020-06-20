@@ -25,6 +25,6 @@ namespace WebApplication.Models
         /// <summary>
         /// Collection d'élèves dans la classe
         /// </summary>
-        //public ICollection<EleveViewModel> Eleves { get; set; }
+        public ICollection<EleveViewModel> Eleves { get; set; }
     }
 }
