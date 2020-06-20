@@ -36,7 +36,7 @@ namespace WebApplication.Controllers
             Eleve eleve = Manager.Instance.GetEleveById(eleveId);
             EleveAdapter eleveAdapter = new EleveAdapter();
             EleveViewModel vm = eleveAdapter.ConvertToViewModel(eleve);
-            vm.Moyenne = vm.Notes.Average(n => n.ValeurNote);
+            //vm.Moyenne = vm.Notes.Average(n => n.ValeurNote);
             return PartialView("DetailEleve", vm);
         }
     }

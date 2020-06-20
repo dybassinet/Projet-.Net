@@ -18,7 +18,7 @@
     <tr>
         <th>Date de l'absence</th>
         <th>Motif</th>
-        <th><button class="btn btn-primary">Ajouter absence</button></th>
+        <th><button onclick="ajouterAbsence(@Model.EleveId)" class="btn btn-primary">Ajouter absence</button></th>
     </tr>
     @foreach (AbsenceViewModel vm in Model.Absences)
     {
@@ -52,3 +52,24 @@
                 new SelectList(Model.Absences, "AbsenceId", "Motif"))
 
 @Html.ListBoxFor(m => m.Notes, new SelectList(Model.Notes, "NoteId", ""))*@
+
+<script>
+
+    function ajouterAbsence(eleveId) {
+        var serviceURL = '/Absence/AjoutAbsence';
+        $.ajax({
+            url: serviceURL,
+            data: {
+                eleveId: eleveId,
+            },
+            success: function (data) {
+                console.log(data);
+                $("#content").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+</script>

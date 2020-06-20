@@ -35,7 +35,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Moyenne de l'élève
         /// </summary>
-        public double Moyenne { get; set; }
+        public double? Moyenne { get; set; }
 
         /// <summary>
         /// Classe

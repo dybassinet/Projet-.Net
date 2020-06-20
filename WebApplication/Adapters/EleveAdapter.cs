@@ -28,6 +28,11 @@ namespace WebApplication.Adapters
                 Notes = noteAdapter.ConvertToViewModels(eleve.Notes.ToList())
             };
 
+            if (vm.Notes != null)
+            {
+                vm.Moyenne = vm.Notes.Average(n => n.ValeurNote);
+            }
+
             return vm;
         }
 

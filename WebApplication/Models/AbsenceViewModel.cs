@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Date de l'absence
         /// </summary>
+        [Display(Name = "Date d'absence")]
         public DateTime DateAbsence { get; set; }
 
         /// <summary>

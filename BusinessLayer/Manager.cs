@@ -205,6 +205,16 @@ namespace BusinessLayer
             return result.Count();
         }
 
+        /// <summary>
+        /// Ajoute une absence
+        /// </summary>
+        /// <param name="absence">Absence</param>
+        public void AddAbsence(Absence absence)
+        {
+            AbsenceCommand absenceCommand = new AbsenceCommand(monContexte);
+            absenceCommand.Add(absence);
+        }
+
         #endregion
     }
 }

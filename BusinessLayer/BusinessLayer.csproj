@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\EleveCommand.cs" />
+    <Compile Include="Commands\AbsenceCommand.cs" />
     <Compile Include="Commands\NoteCommand.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
