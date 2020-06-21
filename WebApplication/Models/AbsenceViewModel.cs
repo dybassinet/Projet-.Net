@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace WebApplication.Models
 {
@@ -32,6 +29,6 @@ namespace WebApplication.Models
         /// <summary>
         /// Elève Absent
         /// </summary>
-        //public Eleve Eleve { get; set; }
+        public string IdentiteEleve { get; set; }
     }
 }

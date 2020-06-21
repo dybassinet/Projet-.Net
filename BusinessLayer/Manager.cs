@@ -86,6 +86,17 @@ namespace BusinessLayer
             return result;
         }
 
+        public List<Eleve> GetBestEleves()
+        {
+            EleveQuery query = new EleveQuery(monContexte);
+            List<Eleve> result = query.GetBestEleves();
+            return result;
+        }
+
+        /// <summary>
+        /// Modifie un élève
+        /// </summary>
+        /// <param name="eleve">élève modifié</param>
         public void EditEleve(Eleve eleve)
         {
             EleveCommand eleveCommand = new EleveCommand(monContexte);
@@ -148,10 +159,24 @@ namespace BusinessLayer
             return result.Average(n => n.ValeurNote);
         }
 
+        /// <summary>
+        /// Ajoute une note
+        /// </summary>
+        /// <param name="note">Nouvelle note</param>
         public void AddNote(Note note)
         {
             NoteCommand noteCommand = new NoteCommand(monContexte);
             noteCommand.Add(note);
+        }
+
+        /// <summary>
+        /// Modifie une note
+        /// </summary>
+        /// <param name="note">Note modifiée</param>
+        public void EditNote(Note note)
+        {
+            NoteCommand noteCommand = new NoteCommand(monContexte);
+            noteCommand.Edit(note);
         }
 
         #endregion
@@ -203,6 +228,17 @@ namespace BusinessLayer
             AbsenceQuery query = new AbsenceQuery(monContexte);
             List<Absence> result = query.GetByEleveId(eleveId);
             return result.Count();
+        }
+
+        /// <summary>
+        /// Retourne les 5 dernières absences
+        /// </summary>
+        /// <returns></returns>
+        public List<Absence> GetLastAbsences()
+        {
+            AbsenceQuery query = new AbsenceQuery(monContexte);
+            List<Absence> result = query.GetLastAbsences();
+            return result;
         }
 
         /// <summary>

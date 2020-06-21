@@ -32,6 +32,7 @@
         $.ajax({
             url: serviceURL,
             data: {
+                usePartial: true,
                 eleveId: eleveId,
             },
             success: function (data) {

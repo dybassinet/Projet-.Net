@@ -137,6 +137,7 @@
     <Compile Include="Controllers\ClasseController.cs" />
     <Compile Include="Controllers\EleveController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -292,6 +293,9 @@
     <Content Include="Views\Classe\Index.cshtml" />
     <Content Include="Views\Classe\DetailClasse.cshtml" />
     <Content Include="Views\Absence\AjoutAbsence.cshtml" />
+    <Content Include="Views\Note\EditNote.cshtml" />
+    <Content Include="Views\Eleve\BestEleves.cshtml" />
+    <Content Include="Views\Absence\LastAbsences.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

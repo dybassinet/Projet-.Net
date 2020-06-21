@@ -30,7 +30,7 @@ namespace BusinessLayer.Queries
         /// <returns>Entité <see cref="Note"/></returns>
         public Note GetById(int id)
         {
-            return _contexte.Notes.Where(n => n.EleveId == id).SingleOrDefault();
+            return _contexte.Notes.Where(n => n.NoteId == id).SingleOrDefault();
         }
 
         /// <summary>

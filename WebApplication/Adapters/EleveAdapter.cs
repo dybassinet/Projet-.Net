@@ -56,9 +56,14 @@ namespace WebApplication.Adapters
                     Prenom = eleve.Prenom,
                     DateNaissance = eleve.DateNaissance,
                     ClassId = eleve.ClassId,
-                    /*Absences = absenceAdapter.ConvertToViewModels(eleve.Absences.ToList()),
-                    Notes = noteAdapter.ConvertToViewModels(eleve.Notes.ToList())*/
+                    //Absences = absenceAdapter.ConvertToViewModels(eleve.Absences.ToList()),
+                    Notes = noteAdapter.ConvertToViewModels(eleve.Notes.ToList())
                 };
+
+                if (vm.Notes != null)
+                {
+                    vm.Moyenne = vm.Notes.Average(n => n.ValeurNote);
+                }
 
                 vms.Add(vm);
             }

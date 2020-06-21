@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using Model.Entities;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplication.Adapters;
 using WebApplication.Models;
@@ -19,7 +20,7 @@ namespace WebApplication.Controllers
             if (!ModelState.IsValid)
             {
                 //Notification erreur
-                return PartialView("AjoutAbsence");
+                return PartialView("AjoutAbsence", vm);
             }
 
             AbsenceAdapter absenceAdapter = new AbsenceAdapter();
@@ -31,6 +32,14 @@ namespace WebApplication.Controllers
             EleveViewModel eleveVM = eleveAdapter.ConvertToViewModel(eleve);
             //Notification succes
             return View("../Eleve/DetailEleve", eleveVM);
+        }
+
+        public ActionResult GetLastAbsences()
+        {
+            AbsenceAdapter absenceAdapter = new AbsenceAdapter();
+            List<Absence> absences = Manager.Instance.GetLastAbsences();
+            List<AbsenceViewModel> vms = absenceAdapter.ConvertToViewModels(absences);
+            return PartialView("LastAbsences", vms);
         }
     }
 }

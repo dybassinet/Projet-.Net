@@ -29,9 +29,9 @@ namespace WebApplication.Adapters
         public List<NoteViewModel> ConvertToViewModels(List<Note> notes)
         {
             var vms = new List<NoteViewModel>();
-            if (notes == null)
+            if (notes == null || notes.Count == 0)
             {
-                return vms;
+                return null;
             }
 
             foreach (Note note in notes)

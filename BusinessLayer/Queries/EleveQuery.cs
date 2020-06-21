@@ -28,7 +28,7 @@ namespace BusinessLayer.Queries
                 query = query.Where(e => e.Nom.ToUpper().Contains(criterias.ToUpper()) || e.Prenom.ToUpper().Contains(criterias.ToUpper()));
             }
 
-            return query.OrderBy(e => e.Nom).ToList();
+            return query.OrderBy(e => e.Nom).Include(e => e.Notes).ToList();
         }
 
         /// <summary>
@@ -39,6 +39,17 @@ namespace BusinessLayer.Queries
         public Eleve GetById(int id)
         {
             return _contexte.Eleves.Where(e => e.EleveId == id).Include(m => m.Absences).Include(m => m.Notes).SingleOrDefault();
+        }
+
+        /// <summary>
+        /// Retourne les 5 meilleurs élèves
+        /// </summary>
+        /// <returns></returns>
+        public List<Eleve> GetBestEleves()
+        {
+            IQueryable<Eleve> query = _contexte.Eleves;
+            query = query.OrderByDescending(e => e.Notes.Count != 0 ? e.Notes.Average(n => n.ValeurNote) : 0).Take(5);
+            return query.Include(e => e.Notes).ToList();
         }
     }
 }

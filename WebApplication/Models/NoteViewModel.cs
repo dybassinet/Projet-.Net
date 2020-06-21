@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Date de la note
         /// </summary>
+        [Display(Name = "Date")]
         public DateTime DateNote { get; set; }
 
         /// <summary>
@@ -30,6 +32,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Valeur de la note
         /// </summary>
+        [Display(Name = "Note")]
         public int ValeurNote { get; set; }
 
         /// <summary>

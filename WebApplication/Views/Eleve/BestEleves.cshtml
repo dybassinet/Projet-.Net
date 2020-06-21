@@ -1,0 +1,41 @@
+﻿@using WebApplication.Models;
+@model List<EleveViewModel>
+@Scripts.Render("~/bundles/jquery")
+
+<table class="table table-bordered">
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Moyenne</th>
+    </tr>
+    @foreach (EleveViewModel vm in Model)
+    {
+        <tr>
+            <td>@vm.Nom</td>
+            <td>@vm.Prenom</td>
+            <td>@vm.Moyenne</td>
+            <td><button onclick="getEleve(@vm.EleveId)" class="btn btn-primary">Detail</button></td>
+        </tr>
+    }
+</table>
+
+<script>
+    function getEleve(eleveId) {
+        var serviceURL = '/Eleve/DetailEleve';
+        $.ajax({
+            url: serviceURL,
+            data: {
+                usePartial: true,
+                eleveId: eleveId,
+            },
+            success: function (data) {
+                console.log(data);
+                $("#content").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+</script>

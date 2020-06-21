@@ -31,13 +31,30 @@ namespace WebApplication.Controllers
         /// </summary>
         /// <param name="eleveId"></param>
         /// <returns></returns>
-        public ActionResult DetailEleve(int eleveId)
+        public ActionResult DetailEleve(bool usePartial, int eleveId)
         {
             Eleve eleve = Manager.Instance.GetEleveById(eleveId);
             EleveAdapter eleveAdapter = new EleveAdapter();
             EleveViewModel vm = eleveAdapter.ConvertToViewModel(eleve);
             //vm.Moyenne = vm.Notes.Average(n => n.ValeurNote);
-            return PartialView("DetailEleve", vm);
+            if (usePartial)
+            {
+                return PartialView("DetailEleve", vm);
+            }
+
+            return View("DetailEleve", vm);
+        }
+
+        /// <summary>
+        /// Retourne la vue avec les meilleurs élèves
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetBestEleves()
+        {
+            List<Eleve> eleves = Manager.Instance.GetBestEleves();
+            EleveAdapter eleveAdapter = new EleveAdapter();
+            List<EleveViewModel> vms = eleveAdapter.ConvertToViewModels(eleves);
+            return PartialView("BestEleves", vms);
         }
     }
 }

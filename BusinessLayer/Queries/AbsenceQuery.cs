@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Entities;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace BusinessLayer.Queries
@@ -41,6 +42,17 @@ namespace BusinessLayer.Queries
         public List<Absence> GetByEleveId(int eleveId)
         {
             return _contexte.Absences.Where(a => a.EleveId == eleveId).ToList();
+        }
+
+        /// <summary>
+        /// Retourne les 5 dernières absences
+        /// </summary>
+        /// <returns></returns>
+        public List<Absence> GetLastAbsences()
+        {
+            IQueryable<Absence> query = _contexte.Absences;
+            query = query.OrderByDescending(e => e.DateAbsence).Take(5);
+            return query.Include(e => e.Eleve).ToList();
         }
     }
 }

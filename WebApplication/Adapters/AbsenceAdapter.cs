@@ -26,20 +26,23 @@ namespace WebApplication.Adapters
 
         public List<AbsenceViewModel> ConvertToViewModels(List<Absence> absences)
         {
+            EleveAdapter eleveAdapter = new EleveAdapter();
             var vms = new List<AbsenceViewModel>();
-            if (absences == null)
+            if (absences == null || absences.Count == 0)
             {
                 return vms;
             }
 
             foreach (Absence absence in absences)
             {
+                EleveViewModel eleve = eleveAdapter.ConvertToViewModel(absence.Eleve);
                 var vm = new AbsenceViewModel
                 {
                     AbsenceId = absence.AbsenceId,
                     Motif = absence.Motif,
                     DateAbsence = absence.DateAbsence,
-                    EleveId = absence.EleveId
+                    EleveId = absence.EleveId,
+                    IdentiteEleve = $"{eleve.Prenom} {eleve.Nom}"
                 };
 
                 vms.Add(vm);

@@ -22,5 +22,19 @@ namespace BusinessLayer.Commands
             _contexte.Notes.Add(note);
             _contexte.SaveChanges();
         }
+
+        public void Edit(Note note)
+        {
+            Note actualNote = _contexte.Notes.Where(n => n.NoteId == note.NoteId).SingleOrDefault();
+            if (actualNote != null)
+            {
+                actualNote.DateNote = note.DateNote;
+                actualNote.Matiere = note.Matiere;
+                actualNote.ValeurNote = note.ValeurNote;
+                actualNote.Appreciation = note.Appreciation;
+            }
+
+            _contexte.SaveChanges();
+        }
     }
 }

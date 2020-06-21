@@ -35,16 +35,20 @@
         <th>Matière</th>
         <th>Note</th>
         <th>Appréciation</th>
-        <th><button class="btn btn-primary">Ajouter note</button></th>
+        <th><button onclick="ajouterNote(@Model.EleveId)" class="btn btn-primary">Ajouter note</button></th>
     </tr>
-    @foreach (NoteViewModel vm in Model.Notes)
+    @if (Model.Notes != null)
     {
-        <tr>
-            <td>@vm.DateNote.ToString("dd/MM/yyyy")</td>
-            <td>@vm.Matiere</td>
-            <td>@vm.ValeurNote</td>
-            <td>@vm.Appreciation</td>
-        </tr>
+        foreach (NoteViewModel vm in Model.Notes)
+        {
+            <tr>
+                <td>@vm.DateNote.ToString("dd/MM/yyyy")</td>
+                <td>@vm.Matiere</td>
+                <td>@vm.ValeurNote</td>
+                <td>@vm.Appreciation</td>
+                <td><button onclick="modifierNote(@Model.EleveId, @vm.NoteId)" class="btn btn-primary">Modifier</button></td>
+            </tr>
+        }
     }
 </table>
 
@@ -60,6 +64,42 @@
         $.ajax({
             url: serviceURL,
             data: {
+                eleveId: eleveId,
+            },
+            success: function (data) {
+                console.log(data);
+                $("#content").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function ajouterNote(eleveId) {
+        var serviceURL = '/Note/OpenViewEditNote';
+        $.ajax({
+            url: serviceURL,
+            data: {
+                noteId: 0,
+                eleveId: eleveId,
+            },
+            success: function (data) {
+                console.log(data);
+                $("#content").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function modifierNote(eleveId, noteId) {
+        var serviceURL = '/Note/OpenViewEditNote';
+        $.ajax({
+            url: serviceURL,
+            data: {
+                noteId: noteId,
                 eleveId: eleveId,
             },
             success: function (data) {
