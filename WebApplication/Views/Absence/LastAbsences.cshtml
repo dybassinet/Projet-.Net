@@ -6,14 +6,12 @@
     <tr>
         <th>Date de l'absence</th>
         <th>Motif</th>
-        <th>Nom de l'élève</th>
     </tr>
     @foreach (AbsenceViewModel vm in Model)
     {
         <tr>
-            <td>@vm.DateAbsence</td>
+            <td>@vm.DateAbsence.ToString("dd/MM/yyyy")</td>
             <td>@vm.Motif</td>
-            <td>@vm.IdentiteEleve</td>
             <td><button onclick="getEleve(@vm.EleveId)" class="btn btn-primary">Detail</button></td>
         </tr>
     }

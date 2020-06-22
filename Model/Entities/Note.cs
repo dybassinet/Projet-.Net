@@ -37,6 +37,6 @@ namespace Model.Entities
         /// <summary>
         /// Elève noté
         /// </summary>
-        public Eleve Eleve { get; set; }
+        public virtual Eleve Eleve { get; set; }
     }
 }

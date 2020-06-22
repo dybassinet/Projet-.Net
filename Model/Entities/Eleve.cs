@@ -33,16 +33,16 @@ namespace Model.Entities
         /// <summary>
         /// Classe
         /// </summary>
-        public Classe Classe { get; set; }
+        public virtual Classe Classe { get; set; }
 
         /// <summary>
         /// Collection des notes de l'élève
         /// </summary>
-        public ICollection<Note> Notes { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
 
         /// <summary>
         /// Collection des absences de l'élève
         /// </summary>
-        public ICollection<Absence> Absences { get; set; }
+        public virtual ICollection<Absence> Absences { get; set; }
     }
 }

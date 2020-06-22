@@ -29,6 +29,6 @@ namespace Model.Entities
         /// <summary>
         /// Elève Absent
         /// </summary>
-        public Eleve Eleve { get; set; }
+        public virtual Eleve Eleve { get; set; }
     }
 }

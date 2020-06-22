@@ -28,7 +28,7 @@ namespace BusinessLayer.Queries
                 query = query.Where(e => e.Nom.ToUpper().Contains(criterias.ToUpper()) || e.Prenom.ToUpper().Contains(criterias.ToUpper()));
             }
 
-            return query.OrderBy(e => e.Nom).Include(e => e.Notes).ToList();
+            return query.OrderBy(e => e.Nom).ToList();
         }
 
         /// <summary>

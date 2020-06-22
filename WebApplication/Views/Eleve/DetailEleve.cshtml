@@ -1,56 +1,57 @@
 ﻿@using WebApplication.Models;
 @model EleveViewModel
 
-
-<div class="form-group">
-    @Html.Label("Nom : ", new { @class = "col-sm-4"})
-    @Html.TextBoxFor(m => m.Nom, new { @class = "col-sm-8 form-control" })
-</div>
-<div class="form-group">
-    @Html.Label("Prénom : ", new { @class = "col-sm-4" })
-    @Html.TextBoxFor(m => m.Prenom, new { @class = "col-sm-8 form-control" })
-</div>
-<div class="form-group">
-    @Html.Label("Moyenne : ", new { @class = "col-sm-4" })
-    @Html.TextBoxFor(m => m.Moyenne, new { @class = "col-sm-8 form-control" })
-</div>
-<table class="table table-bordered">
-    <tr>
-        <th>Date de l'absence</th>
-        <th>Motif</th>
-        <th><button onclick="ajouterAbsence(@Model.EleveId)" class="btn btn-primary">Ajouter absence</button></th>
-    </tr>
-    @foreach (AbsenceViewModel vm in Model.Absences)
-    {
+<div id="content">
+    <div class="form-group">
+        @Html.Label("Nom : ", new { @class = "col-sm-4"})
+        @Html.TextBoxFor(m => m.Nom, new { @class = "col-sm-8 form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Prénom : ", new { @class = "col-sm-4" })
+        @Html.TextBoxFor(m => m.Prenom, new { @class = "col-sm-8 form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Moyenne : ", new { @class = "col-sm-4" })
+        @Html.TextBoxFor(m => m.Moyenne, new { @class = "col-sm-8 form-control" })
+    </div>
+    <table class="table table-bordered">
         <tr>
-            <td>@vm.DateAbsence.ToString("dd/MM/yyyy")</td>
-            <td>@vm.Motif</td>
+            <th>Date de l'absence</th>
+            <th>Motif</th>
+            <th><button onclick="ajouterAbsence(@Model.EleveId)" class="btn btn-primary">Ajouter absence</button></th>
         </tr>
-    }
-</table>
-
-<table class="table table-bordered">
-    <tr>
-        <th>Date de la note</th>
-        <th>Matière</th>
-        <th>Note</th>
-        <th>Appréciation</th>
-        <th><button onclick="ajouterNote(@Model.EleveId)" class="btn btn-primary">Ajouter note</button></th>
-    </tr>
-    @if (Model.Notes != null)
-    {
-        foreach (NoteViewModel vm in Model.Notes)
+        @foreach (AbsenceViewModel vm in Model.Absences)
         {
             <tr>
-                <td>@vm.DateNote.ToString("dd/MM/yyyy")</td>
-                <td>@vm.Matiere</td>
-                <td>@vm.ValeurNote</td>
-                <td>@vm.Appreciation</td>
-                <td><button onclick="modifierNote(@Model.EleveId, @vm.NoteId)" class="btn btn-primary">Modifier</button></td>
+                <td>@vm.DateAbsence.ToString("dd/MM/yyyy")</td>
+                <td>@vm.Motif</td>
             </tr>
         }
-    }
-</table>
+    </table>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Date de la note</th>
+            <th>Matière</th>
+            <th>Note</th>
+            <th>Appréciation</th>
+            <th><button onclick="ajouterNote(@Model.EleveId)" class="btn btn-primary">Ajouter note</button></th>
+        </tr>
+        @if (Model.Notes != null)
+        {
+            foreach (NoteViewModel vm in Model.Notes)
+            {
+                <tr>
+                    <td>@vm.DateNote.ToString("dd/MM/yyyy")</td>
+                    <td>@vm.Matiere</td>
+                    <td>@vm.ValeurNote</td>
+                    <td>@vm.Appreciation</td>
+                    <td><button onclick="modifierNote(@Model.EleveId, @vm.NoteId)" class="btn btn-primary">Modifier</button></td>
+                </tr>
+            }
+        }
+    </table>
+</div>
 
 @*@Html.ListBoxFor(m => m.Absences,
                 new SelectList(Model.Absences, "AbsenceId", "Motif"))

@@ -22,7 +22,7 @@ namespace Model.Entities
         /// <summary>
         /// Collection d'élèves dans la classe
         /// </summary>
-        public ICollection<Eleve> Eleves { get; set; }
+        public virtual ICollection<Eleve> Eleves { get; set; }
 
     }
 }

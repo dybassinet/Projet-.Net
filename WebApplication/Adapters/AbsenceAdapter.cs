@@ -35,14 +35,12 @@ namespace WebApplication.Adapters
 
             foreach (Absence absence in absences)
             {
-                EleveViewModel eleve = eleveAdapter.ConvertToViewModel(absence.Eleve);
                 var vm = new AbsenceViewModel
                 {
                     AbsenceId = absence.AbsenceId,
                     Motif = absence.Motif,
                     DateAbsence = absence.DateAbsence,
                     EleveId = absence.EleveId,
-                    IdentiteEleve = $"{eleve.Prenom} {eleve.Nom}"
                 };
 
                 vms.Add(vm);

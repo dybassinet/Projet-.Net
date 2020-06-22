@@ -50,6 +50,7 @@ namespace BusinessLayer.Queries
         /// <returns></returns>
         public List<Absence> GetLastAbsences()
         {
+            //TODO : corriger exception
             IQueryable<Absence> query = _contexte.Absences;
             query = query.OrderByDescending(e => e.DateAbsence).Take(5);
             return query.Include(e => e.Eleve).ToList();

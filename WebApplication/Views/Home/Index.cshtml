@@ -2,21 +2,15 @@
     ViewBag.Title = "Home Page";
 }
 @Scripts.Render("~/bundles/jquery")
+<div id="content">
 
-<div class="col-sm-12">
-    <a href='@Url.Action("Index", "Eleve", new { criterias = String.Empty })'>Liste des élèves</a>
-</div>
-<div class="col-sm-12">
-    <a href='@Url.Action("Index", "Classe")'>Liste des classes</a>
-</div>
+    <div id="bestEleves">
 
-<div id="bestEleves">
+    </div>
 
-</div>
+    <div id="lastAbsences">
 
-<div id="lastAbsences">
-
-
+    </div>
 </div>
 
 <script>
@@ -35,7 +29,7 @@
         });
     }
 
-    /*function getLastAbsences() {
+    function getLastAbsences() {
         var serviceURL = '/Absence/GetLastAbsences';
         $.ajax({
             url: serviceURL,
@@ -47,11 +41,12 @@
                 console.log(error);
             }
         });
-    }*/
+    }
 
     $(document).ready(function () {
         getBestEleves();
-       // getLastAbsences();
+        getLastAbsences();
     });
+    
 
 </script>
