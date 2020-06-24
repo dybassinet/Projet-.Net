@@ -3,6 +3,7 @@ using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication.Adapters;
@@ -49,9 +50,9 @@ namespace WebApplication.Controllers
         /// Retourne la vue avec les meilleurs élèves
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetBestEleves()
+        public async Task<ActionResult> GetBestEleves()
         {
-            List<Eleve> eleves = Manager.Instance.GetBestEleves();
+            List<Eleve> eleves = await Manager.Instance.GetBestEleves();
             EleveAdapter eleveAdapter = new EleveAdapter();
             List<EleveViewModel> vms = eleveAdapter.ConvertToViewModels(eleves);
             return PartialView("BestEleves", vms);

@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using Model.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebApplication.Adapters;
 using WebApplication.Models;
@@ -34,10 +35,10 @@ namespace WebApplication.Controllers
             return View("../Eleve/DetailEleve", eleveVM);
         }
 
-        public ActionResult GetLastAbsences()
+        public async Task<ActionResult> GetLastAbsences()
         {
             AbsenceAdapter absenceAdapter = new AbsenceAdapter();
-            List<Absence> absences = Manager.Instance.GetLastAbsences();
+            List<Absence> absences = await Manager.Instance.GetLastAbsences();
             List<AbsenceViewModel> vms = absenceAdapter.ConvertToViewModels(absences);
             return PartialView("LastAbsences", vms);
         }

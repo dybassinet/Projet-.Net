@@ -3,6 +3,7 @@ using Model.Entities;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BusinessLayer.Queries
 {
@@ -48,12 +49,10 @@ namespace BusinessLayer.Queries
         /// Retourne les 5 dernières absences
         /// </summary>
         /// <returns></returns>
-        public List<Absence> GetLastAbsences()
+        public async Task<List<Absence>> GetLastAbsences()
         {
-            //TODO : corriger exception
-            IQueryable<Absence> query = _contexte.Absences;
-            query = query.OrderByDescending(e => e.DateAbsence).Take(5);
-            return query.Include(e => e.Eleve).ToList();
+            //TODO : pas de pb mais pas assez optimisé (parfois l'affichage ne se fait pas car trop long)
+            return await _contexte.Absences.OrderByDescending(e => e.DateAbsence).Take(5).ToListAsync();
         }
     }
 }

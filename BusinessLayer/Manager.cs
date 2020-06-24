@@ -86,10 +86,10 @@ namespace BusinessLayer
             return result;
         }
 
-        public List<Eleve> GetBestEleves()
+        public async Task<List<Eleve>> GetBestEleves()
         {
             EleveQuery query = new EleveQuery(monContexte);
-            List<Eleve> result = query.GetBestEleves();
+            List<Eleve> result = await query.GetBestEleves();
             return result;
         }
 
@@ -234,10 +234,10 @@ namespace BusinessLayer
         /// Retourne les 5 dernières absences
         /// </summary>
         /// <returns></returns>
-        public List<Absence> GetLastAbsences()
+        public async Task<List<Absence>> GetLastAbsences()
         {
             AbsenceQuery query = new AbsenceQuery(monContexte);
-            List<Absence> result = query.GetLastAbsences();
+            List<Absence> result = await query.GetLastAbsences();
             return result;
         }
 

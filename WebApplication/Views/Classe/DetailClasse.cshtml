@@ -2,24 +2,26 @@
 @model ClasseViewModel
 
 
-<h2>@Model.NomEtablissement - @Model.Niveau</h2>
+<div id="content">
+    <h2>@Model.NomEtablissement - @Model.Niveau</h2>
 
-<table class="table table-bordered">
-    <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Date de naissance</th>
-    </tr>
-    @foreach (EleveViewModel vm in Model.Eleves)
-    {
-    <tr>
-        <td>@vm.Nom</td>
-        <td>@vm.Prenom</td>
-        <td>@vm.DateNaissance.ToString("dd/MM/yyyy")</td>
-        <td><button onclick="getEleve(@vm.EleveId)" class="btn btn-primary">Detail</button></td>
-    </tr>
-    }
-</table>
+    <table class="table table-bordered">
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de naissance</th>
+        </tr>
+        @foreach (EleveViewModel vm in Model.Eleves)
+        {
+        <tr>
+            <td>@vm.Nom</td>
+            <td>@vm.Prenom</td>
+            <td>@vm.DateNaissance.ToString("dd/MM/yyyy")</td>
+            <td><button onclick="getEleve(@vm.EleveId)" class="btn btn-primary">Detail</button></td>
+        </tr>
+        }
+    </table>
+</div>
 
 <script>
 
@@ -28,6 +30,7 @@
         $.ajax({
             url: serviceURL,
             data: {
+                usePartial: true,
                 eleveId: eleveId,
             },
             success: function (data) {
