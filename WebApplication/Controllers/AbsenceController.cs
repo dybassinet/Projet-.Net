@@ -21,7 +21,7 @@ namespace WebApplication.Controllers
             if (!ModelState.IsValid)
             {
                 //Notification erreur
-                return PartialView("AjoutAbsence", vm);
+                return View("AjoutAbsence", vm);
             }
 
             AbsenceAdapter absenceAdapter = new AbsenceAdapter();
@@ -32,7 +32,7 @@ namespace WebApplication.Controllers
             Eleve eleve = Manager.Instance.GetEleveById(vm.EleveId);
             EleveViewModel eleveVM = eleveAdapter.ConvertToViewModel(eleve);
             //Notification succes
-            return View("../Eleve/DetailEleve", eleveVM);
+            return RedirectToAction("DetailEleve", "Eleve", new { usePartial = false, eleveId = vm.EleveId });
         }
 
         public async Task<ActionResult> GetLastAbsences()

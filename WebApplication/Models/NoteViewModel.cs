@@ -16,6 +16,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Libellé de la matière
         /// </summary>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La matière est requise")]
         public string Matiere { get; set; }
 
         /// <summary>
@@ -27,6 +28,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Appréciation
         /// </summary>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "L'appréciation est requise")]
         public string Appreciation { get; set; }
 
         /// <summary>

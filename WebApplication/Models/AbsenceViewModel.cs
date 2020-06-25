@@ -19,6 +19,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Motif de l'absence
         /// </summary>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Le motif est requis")]
         public string Motif { get; set; }
 
         /// <summary>

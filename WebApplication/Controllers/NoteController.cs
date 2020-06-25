@@ -31,7 +31,7 @@ namespace WebApplication.Controllers
             if (!ModelState.IsValid)
             {
                 //Notification erreur
-                return PartialView("EditNote", vm);
+                return View("EditNote", vm);
             }
 
             NoteAdapter noteAdapter = new NoteAdapter();
