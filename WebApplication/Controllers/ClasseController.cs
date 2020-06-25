@@ -27,7 +27,7 @@ namespace WebApplication.Controllers
             ClasseAdapter classeAdapter = new ClasseAdapter();
             ClasseViewModel vm = classeAdapter.ConvertToViewModel(classe);
             vm.Eleves = vm.Eleves.OrderBy(e => e.Nom).ToList();
-            return PartialView("DetailClasse", vm);
+            return View("DetailClasse", vm);
         }
     }
 }

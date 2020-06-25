@@ -16,28 +16,10 @@
             <tr>
                 <td>@vm.NomEtablissement</td>
                 <td>@vm.Niveau</td>
-                <td><button onclick="getEleve(@vm.ClassId)" class="btn btn-primary">Detail</button></td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("DetailClasse", "Classe", new { classId = vm.ClassId })">Détail</a>
+                </td>
             </tr>
         }
     </table>
 </div>
-
-<script>
-    function getEleve(classId) {
-        var serviceURL = '/Classe/DetailClasse';
-        $.ajax({
-            url: serviceURL,
-            data: {
-                classId: classId,
-            },
-            success: function (data) {
-                console.log(data);
-                $("#content").html(data);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
-</script>

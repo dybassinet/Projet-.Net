@@ -32,17 +32,11 @@ namespace WebApplication.Controllers
         /// </summary>
         /// <param name="eleveId"></param>
         /// <returns></returns>
-        public ActionResult DetailEleve(bool usePartial, int eleveId)
+        public ActionResult DetailEleve(int eleveId)
         {
             Eleve eleve = Manager.Instance.GetEleveById(eleveId);
             EleveAdapter eleveAdapter = new EleveAdapter();
             EleveViewModel vm = eleveAdapter.ConvertToViewModel(eleve);
-            //vm.Moyenne = vm.Notes.Average(n => n.ValeurNote);
-            if (usePartial)
-            {
-                return PartialView("DetailEleve", vm);
-            }
-
             return View("DetailEleve", vm);
         }
 

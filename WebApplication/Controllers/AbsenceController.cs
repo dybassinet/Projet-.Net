@@ -13,7 +13,7 @@ namespace WebApplication.Controllers
         // GET: Absence
         public ActionResult AjoutAbsence(int eleveId)
         {
-            return PartialView(new AbsenceViewModel { EleveId = eleveId });
+            return View(new AbsenceViewModel { EleveId = eleveId });
         }
 
         public ActionResult CreerAbsence(AbsenceViewModel vm)

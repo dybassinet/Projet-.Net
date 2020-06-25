@@ -17,13 +17,13 @@ namespace WebApplication.Controllers
         {
             if (noteId == 0) //CREATION
             {
-                return PartialView("EditNote", new NoteViewModel { EleveId = eleveId });
+                return View("EditNote", new NoteViewModel { EleveId = eleveId });
             }
 
             NoteAdapter noteAdapter = new NoteAdapter();
             Note note = Manager.Instance.GetNoteById(noteId);
             NoteViewModel noteViewModel = noteAdapter.ConvertToViewModel(note);
-            return PartialView("EditNote", noteViewModel);
+            return View("EditNote", noteViewModel);
         }
 
         public ActionResult EditNote(NoteViewModel vm)
@@ -53,7 +53,6 @@ namespace WebApplication.Controllers
             EleveViewModel eleveVM = eleveAdapter.ConvertToViewModel(eleve);
             //Notification succes
             return RedirectToAction("DetailEleve", "Eleve", new { usePartial = false, eleveId = vm.EleveId });
-            //return View("../Eleve/DetailEleve", eleveVM);
         }
     }
 }
