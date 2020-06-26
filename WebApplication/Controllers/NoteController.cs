@@ -1,9 +1,5 @@
 ﻿using BusinessLayer;
 using Model.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication.Adapters;
 using WebApplication.Models;
@@ -12,10 +8,15 @@ namespace WebApplication.Controllers
 {
     public class NoteController : Controller
     {
-        // GET: Note
+        /// <summary>
+        /// Ouvre la vue de création/modification d'une note
+        /// </summary>
+        /// <param name="noteId">Identifiant de la note</param>
+        /// <param name="eleveId">Identifiant de l'élève</param>
+        /// <returns></returns>
         public ActionResult OpenViewEditNote(int noteId, int eleveId)
         {
-            if (noteId == 0) //CREATION
+            if (noteId == 0) //Création
             {
                 return View("EditNote", new NoteViewModel { EleveId = eleveId });
             }
@@ -35,7 +36,6 @@ namespace WebApplication.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //Notification erreur
                 return View("EditNote", vm);
             }
 
@@ -56,7 +56,6 @@ namespace WebApplication.Controllers
             
             Eleve eleve = Manager.Instance.GetEleveById(vm.EleveId);
             EleveViewModel eleveVM = eleveAdapter.ConvertToViewModel(eleve);
-            //Notification succes
             return RedirectToAction("DetailEleve", "Eleve", new { eleveId = vm.EleveId });
         }
 

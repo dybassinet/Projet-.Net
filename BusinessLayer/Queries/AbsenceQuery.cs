@@ -48,10 +48,9 @@ namespace BusinessLayer.Queries
         /// <summary>
         /// Retourne les 5 dernières absences
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste d'entités <see cref="Absence"/></returns>
         public async Task<List<Absence>> GetLastAbsences()
         {
-            //TODO : pas de pb mais pas assez optimisé (parfois l'affichage ne se fait pas car trop long)
             return await _contexte.Absences.OrderByDescending(e => e.DateAbsence).Take(5).ToListAsync();
         }
     }

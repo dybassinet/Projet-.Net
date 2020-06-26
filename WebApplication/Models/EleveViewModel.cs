@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebApplication.Models
 {
@@ -36,11 +34,6 @@ namespace WebApplication.Models
         /// Moyenne de l'élève
         /// </summary>
         public double? Moyenne { get; set; }
-
-        /// <summary>
-        /// Classe
-        /// </summary>
-        //public ClasseViewModel Classe { get; set; }
 
         /// <summary>
         /// Collection des notes de l'élève

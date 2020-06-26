@@ -17,12 +17,20 @@ namespace BusinessLayer.Commands
             _contexte = contexte;
         }
 
+        /// <summary>
+        /// Ajoute une note
+        /// </summary>
+        /// <param name="note">Entité <see cref="Note"/></param>
         public void Add(Note note)
         {
             _contexte.Notes.Add(note);
             _contexte.SaveChanges();
         }
 
+        /// <summary>
+        /// Modifie une note
+        /// </summary>
+        /// <param name="note">Entité <see cref="Note"/></param>
         public void Edit(Note note)
         {
             Note actualNote = _contexte.Notes.Where(n => n.NoteId == note.NoteId).SingleOrDefault();
@@ -37,10 +45,15 @@ namespace BusinessLayer.Commands
             _contexte.SaveChanges();
         }
 
+        /// <summary>
+        /// Supprime une note
+        /// </summary>
+        /// <param name="noteId">Identifiant de la note</param>
         public void Delete(int noteId)
         {
             Note note = _contexte.Notes.Where(n => n.NoteId == noteId).SingleOrDefault();
             _contexte.Notes.Remove(note);
+            _contexte.SaveChanges();
         }
     }
 }

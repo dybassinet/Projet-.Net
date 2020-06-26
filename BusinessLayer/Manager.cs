@@ -58,6 +58,36 @@ namespace BusinessLayer
             return result;
         }
 
+        /// <summary>
+        /// Ajout d'une classe
+        /// </summary>
+        /// <param name="classe">Entité <see cref="Classe"/></param>
+        public void AddClasse(Classe classe)
+        {
+            ClasseCommand classeCommand = new ClasseCommand(monContexte);
+            classeCommand.Add(classe);
+        }
+
+        /// <summary>
+        /// Modifie une classe
+        /// </summary>
+        /// <param name="classe">Entité <see cref="Classe"/></param>
+        public void EditClasse(Classe classe)
+        {
+            ClasseCommand classeCommand = new ClasseCommand(monContexte);
+            classeCommand.Edit(classe);
+        }
+
+        /// <summary>
+        /// Supprime une classe
+        /// </summary>
+        /// <param name="classeId">Identifiant de la classe</param>
+        public void DeleteClasse(int classeId)
+        {
+            ClasseCommand classeCommand = new ClasseCommand(monContexte);
+            classeCommand.Delete(classeId);
+        }
+
         #endregion
 
         #region Eleves
@@ -96,11 +126,31 @@ namespace BusinessLayer
         /// <summary>
         /// Modifie un élève
         /// </summary>
-        /// <param name="eleve">élève modifié</param>
+        /// <param name="eleve">Entité <see cref="Eleve"/></param>
         public void EditEleve(Eleve eleve)
         {
             EleveCommand eleveCommand = new EleveCommand(monContexte);
             eleveCommand.Edit(eleve);
+        }
+
+        /// <summary>
+        /// Ajoute un élève
+        /// </summary>
+        /// <param name="eleve">Entité <see cref="Eleve"/></param>
+        public void AddEleve(Eleve eleve)
+        {
+            EleveCommand eleveCommand = new EleveCommand(monContexte);
+            eleveCommand.Add(eleve);
+        }
+
+        /// <summary>
+        /// Supprime un élève
+        /// </summary>
+        /// <param name="eleveId">Identifiant de l'élève</param>
+        public void DeleteEleve(int eleveId)
+        {
+            EleveCommand eleveCommand = new EleveCommand(monContexte);
+            eleveCommand.Delete(eleveId);
         }
 
         #endregion
@@ -162,7 +212,7 @@ namespace BusinessLayer
         /// <summary>
         /// Ajoute une note
         /// </summary>
-        /// <param name="note">Nouvelle note</param>
+        /// <param name="note">Entité <see cref="Note"/></param>
         public void AddNote(Note note)
         {
             NoteCommand noteCommand = new NoteCommand(monContexte);
@@ -172,7 +222,7 @@ namespace BusinessLayer
         /// <summary>
         /// Modifie une note
         /// </summary>
-        /// <param name="note">Note modifiée</param>
+        /// <param name="note">Entité <see cref="Note"/></param>
         public void EditNote(Note note)
         {
             NoteCommand noteCommand = new NoteCommand(monContexte);
@@ -243,7 +293,7 @@ namespace BusinessLayer
         /// <summary>
         /// Retourne les 5 dernières absences
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste d'entité <see cref="Absence"/></returns>
         public async Task<List<Absence>> GetLastAbsences()
         {
             AbsenceQuery query = new AbsenceQuery(monContexte);
@@ -254,7 +304,7 @@ namespace BusinessLayer
         /// <summary>
         /// Ajoute une absence
         /// </summary>
-        /// <param name="absence">Absence</param>
+        /// <param name="absence">Entité <see cref="Absence"/></param>
         public void AddAbsence(Absence absence)
         {
             AbsenceCommand absenceCommand = new AbsenceCommand(monContexte);
@@ -264,7 +314,7 @@ namespace BusinessLayer
         /// <summary>
         /// Modifie une absence
         /// </summary>
-        /// <param name="absence">Absence</param>
+        /// <param name="absence">Entité <see cref="Absence"/></param>
         public void EditAbsence(Absence absence)
         {
             AbsenceCommand absenceCommand = new AbsenceCommand(monContexte);

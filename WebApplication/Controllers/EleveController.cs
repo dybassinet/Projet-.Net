@@ -2,9 +2,7 @@
 using Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication.Adapters;
 using WebApplication.Models;

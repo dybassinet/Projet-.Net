@@ -46,10 +46,9 @@ namespace BusinessLayer.Queries
         /// <summary>
         /// Retourne les 5 meilleurs élèves
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste d'entité <see cref="Eleve"/></returns>
         public async Task<List<Eleve>> GetBestEleves()
         {
-            //TODO : pas de pb mais pas assez optimisé (parfois l'affichage ne se fait pas car trop long)
             IQueryable<Eleve> query = _contexte.Eleves;
             query = query.OrderByDescending(e => e.Notes.Count != 0 ? e.Notes.Average(n => n.ValeurNote) : 0).Take(5);
             return await query.Include(e => e.Notes).ToListAsync();

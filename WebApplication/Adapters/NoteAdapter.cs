@@ -6,6 +6,11 @@ namespace WebApplication.Adapters
 {
     public class NoteAdapter
     {
+        /// <summary>
+        /// Converti une entité <see cref="Note"/> en ViewModel <see cref="NoteViewModel"/>
+        /// </summary>
+        /// <param name="note">Entité <see cref="Note"/></param>
+        /// <returns>Objet ViewModel <see cref="NoteViewModel"/></returns>
         public NoteViewModel ConvertToViewModel(Note note)
         {
             if (note == null)
@@ -26,6 +31,11 @@ namespace WebApplication.Adapters
             return vm;
         }
 
+        /// <summary>
+        /// Converti une liste d'entités <see cref="Note"/> en liste de ViewModel <see cref="NoteViewModel"/>
+        /// </summary>
+        /// <param name="notes">Liste d'entités <see cref="Note"/></param>
+        /// <returns>Liste d'objets ViewModel <see cref="NoteViewModel"/></returns>
         public List<NoteViewModel> ConvertToViewModels(List<Note> notes)
         {
             var vms = new List<NoteViewModel>();
@@ -52,6 +62,11 @@ namespace WebApplication.Adapters
             return vms;
         }
 
+        /// <summary>
+        /// Converti un Objet ViewModel <see cref="NoteViewModel"/> en entité <see cref="Note"/>
+        /// </summary>
+        /// <param name="entity">Entité <see cref="Note"/></param>
+        /// <param name="vm">Objet ViewModel <see cref="NoteViewModel"/></param>
         public void ConvertToEntity(Note entity, NoteViewModel vm)
         {
             entity.Matiere = vm.Matiere;

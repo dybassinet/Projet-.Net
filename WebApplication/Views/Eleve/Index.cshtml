@@ -33,27 +33,7 @@
     function rechercher(criterias) {
         url = '@Url.Action("Index", "Eleve", new { criterias = "__criterias__" })';
         url = url.replace("__criterias__", criterias);
-        console.log(url);
         location.href = url;
     }
 
-    @*function delay(callback, ms) {
-        var timer = 0;
-        return function () {
-            var context = this, args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                callback.apply(context, args);
-            }, ms || 0);
-        };
-    }
-
-    $(document).ready(function () {
-        $("#searchEleve").on("keyup", delay(function () {
-            url = '@Url.Action("Index", "Eleve", new { criterias = "__criterias__" })';
-            url = url.replace("__criterias__", $("#searchEleve").val());
-            console.log(url);
-            location.href = url;
-        }, 500))
-    });*@
 </script>

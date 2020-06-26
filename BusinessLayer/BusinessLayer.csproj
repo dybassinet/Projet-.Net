@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ClasseCommand.cs" />
     <Compile Include="Commands\EleveCommand.cs" />
     <Compile Include="Commands\AbsenceCommand.cs" />
     <Compile Include="Commands\NoteCommand.cs" />

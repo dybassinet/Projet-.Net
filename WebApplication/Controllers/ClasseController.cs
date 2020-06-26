@@ -1,9 +1,7 @@
 ﻿using BusinessLayer;
 using Model.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication.Adapters;
 using WebApplication.Models;
@@ -12,7 +10,10 @@ namespace WebApplication.Controllers
 {
     public class ClasseController : Controller
     {
-        // GET: Classe
+        /// <summary>
+        /// Retourne la vue index des classes (liste des classes)
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             List<Classe> classes = Manager.Instance.GetAllClasses();
@@ -21,6 +22,11 @@ namespace WebApplication.Controllers
             return View(vms);
         }
 
+        /// <summary>
+        /// Retourne la vue de détail d'une classe
+        /// </summary>
+        /// <param name="classId">Identifiant de la classe</param>
+        /// <returns></returns>
         public ActionResult DetailClasse(int classId)
         {
             Classe classe = Manager.Instance.GetClasseById(classId);

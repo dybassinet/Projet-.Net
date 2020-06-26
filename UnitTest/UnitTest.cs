@@ -6,6 +6,7 @@ using Model;
 using Model.Entities;
 using System.Linq;
 using System.Data.Entity;
+using BusinessLayer;
 
 namespace UnitTest
 {
@@ -19,9 +20,6 @@ namespace UnitTest
 
         public UnitTest()
         {
-            //
-            // TODO: ajoutez ici la logique du constructeur
-            //
         }
 
         private TestContext testContextInstance;
@@ -56,25 +54,22 @@ namespace UnitTest
         [TestMethod]
         public void TestAddClasse()
         {
-            monContexte.Classes.Add(new Classe { NomEtablissement = "test", Niveau = "term" });
-            monContexte.SaveChanges();
-            Assert.AreEqual(1, monContexte.Classes.Count());
+            Manager.Instance.AddClasse(new Classe { NomEtablissement = "test", Niveau = "term" });
+            Assert.AreEqual(1, Manager.Instance.GetAllClasses().Count);
         }
 
         [TestMethod]
         public void TestAddEleve()
         {
             //On ajoute dans un premier temps une classe pour vérifier la relation Classe/Eleve
-            monContexte.Classes.Add(new Classe { NomEtablissement = "test", Niveau = "term" });
-            monContexte.SaveChanges();
-            Assert.AreEqual(1, monContexte.Classes.Count());
+            Manager.Instance.AddClasse(new Classe { NomEtablissement = "test", Niveau = "term" });
+            Assert.AreEqual(1, Manager.Instance.GetAllClasses().Count);
 
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
 
-            monContexte.Eleves.Add(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            monContexte.SaveChanges();
-            Assert.AreEqual(1, monContexte.Eleves.Count());
-            int nbEleveClasse1 = monContexte.Classes.Where(c => c.ClassId == classe.ClassId).SingleOrDefault().Eleves.Count();
+            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
+            Assert.AreEqual(1, Manager.Instance.GetAllEleves("").Count);
+            int nbEleveClasse1 = Manager.Instance.GetClasseById(classe.ClassId).Eleves.Count();
             Assert.AreEqual(1, nbEleveClasse1);
         }
 
@@ -82,22 +77,20 @@ namespace UnitTest
         public void TestAddAbsence()
         {
             //On ajoute dans un premier temps une classe pour vérifier la relation Classe/Eleve
-            monContexte.Classes.Add(new Classe { NomEtablissement = "test", Niveau = "term" });
-            monContexte.SaveChanges();
-            Assert.AreEqual(1, monContexte.Classes.Count());
+            Manager.Instance.AddClasse(new Classe { NomEtablissement = "test", Niveau = "term" });
+            Assert.AreEqual(1, Manager.Instance.GetAllClasses().Count);
 
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
 
             //On ajoute dans un premier temps un élève pour vérifier la relation Eleve/Absence
-            monContexte.Eleves.Add(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            monContexte.SaveChanges();
+            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
+            Assert.AreEqual(1, Manager.Instance.GetAllEleves("").Count);
 
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
 
-            monContexte.Absences.Add(new Absence { DateAbsence = DateTime.Now, Motif = "Malade", EleveId = eleve.EleveId });
-            monContexte.SaveChanges();
-            Assert.AreEqual(1, monContexte.Absences.Count());
-            int nbAbsenceEleve1 = monContexte.Eleves.Where(e => e.EleveId == eleve.EleveId).SingleOrDefault().Absences.Count();
+            Manager.Instance.AddAbsence(new Absence { DateAbsence = DateTime.Now, Motif = "Malade", EleveId = eleve.EleveId });
+            Assert.AreEqual(1, Manager.Instance.GetAllAbsences().Count);
+            int nbAbsenceEleve1 = Manager.Instance.GetEleveById(eleve.EleveId).Absences.Count();
             Assert.AreEqual(1, nbAbsenceEleve1);
         }
 
@@ -105,22 +98,20 @@ namespace UnitTest
         public void TestAddNote()
         {
             //On ajoute dans un premier temps une classe pour vérifier la relation Classe/Eleve
-            monContexte.Classes.Add(new Classe { NomEtablissement = "test", Niveau = "term" });
-            monContexte.SaveChanges();
-            Assert.AreEqual(1, monContexte.Classes.Count());
+            Manager.Instance.AddClasse(new Classe { NomEtablissement = "test", Niveau = "term" });
+            Assert.AreEqual(1, Manager.Instance.GetAllClasses().Count);
 
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
 
             //On ajoute dans un premier temps un élève pour vérifier la relation Eleve/Absence
-            monContexte.Eleves.Add(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            monContexte.SaveChanges();
+            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
+            Assert.AreEqual(1, Manager.Instance.GetAllEleves("").Count);
 
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
 
-            monContexte.Notes.Add(new Note { ValeurNote = 10, DateNote = DateTime.Now, Matiere = "Mathématique", Appreciation = "Effort à faire", EleveId = eleve.EleveId });
-            monContexte.SaveChanges();
-            Assert.AreEqual(1, monContexte.Notes.ToList().Count());
-            int nbNotesEleve1 = monContexte.Eleves.Where(e => e.EleveId == eleve.EleveId).SingleOrDefault().Notes.Count();
+            Manager.Instance.AddNote(new Note { ValeurNote = 10, DateNote = DateTime.Now, Matiere = "Mathématique", Appreciation = "Effort à faire", EleveId = eleve.EleveId });
+            Assert.AreEqual(1, Manager.Instance.GetAllNotes().Count());
+            int nbNotesEleve1 = Manager.Instance.GetEleveById(eleve.EleveId).Notes.Count();
             Assert.AreEqual(1, nbNotesEleve1);
         }
 
@@ -128,15 +119,13 @@ namespace UnitTest
         public void TestRemoveClasse()
         {
             //ajout de la classe
-            monContexte.Classes.Add(new Classe { Niveau = "CP", NomEtablissement = "test" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
-            Assert.AreEqual("CP", classe.Niveau);
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "test" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
+            Assert.AreEqual("DUT", classe.Niveau);
             Assert.AreEqual("test", classe.NomEtablissement);
 
             //Suppression de la classe
-            monContexte.Classes.Remove(classe);
-            monContexte.SaveChanges();
+            Manager.Instance.DeleteClasse(classe.ClassId);
             bool exist = monContexte.Classes.Where(c => c.ClassId == classe.ClassId).Any();
             Assert.AreEqual(false, exist);
         }
@@ -145,50 +134,43 @@ namespace UnitTest
         public void TestRemoveEleve()
         {
             //Ajout classe pour élève
-            monContexte.Classes.Add(new Classe { Niveau = "CP", NomEtablissement = "test" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "test" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
 
             //Ajout de l'élève
-            monContexte.Eleves.Add(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            monContexte.SaveChanges();
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();
+            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
             Assert.AreEqual("Bassinet", eleve.Nom);
             Assert.AreEqual("Dylan", eleve.Prenom);
 
             //Suppression de l'élève
-            monContexte.Classes.Remove(classe);
-            monContexte.Eleves.Remove(eleve);
-            monContexte.SaveChanges();
+            Manager.Instance.DeleteClasse(classe.ClassId);
+            Manager.Instance.DeleteEleve(eleve.EleveId);
             bool exist = monContexte.Eleves.Where(e => e.EleveId == eleve.EleveId).Any();
             Assert.AreEqual(false, exist);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void TestRemoveAbsence()
         {
             //Ajout classe pour élève
-            monContexte.Classes.Add(new Classe { Niveau = "CP", NomEtablissement = "test" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "test" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
 
-            //Ajout de l'élève pour l'absence
-            monContexte.Eleves.Add(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            monContexte.SaveChanges();
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();
+            //Ajout de l'élève
+            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
+            Assert.AreEqual("Bassinet", eleve.Nom);
+            Assert.AreEqual("Dylan", eleve.Prenom);
 
             //Ajout de l'absence
-            monContexte.Absences.Add(new Absence { Motif = "Grippe", DateAbsence = DateTime.Now.Date, EleveId = eleve.EleveId });
-            monContexte.SaveChanges();
-            Absence absence = monContexte.Absences.ToList().LastOrDefault();
+            Manager.Instance.AddAbsence(new Absence { Motif = "Grippe", DateAbsence = DateTime.Now.Date, EleveId = eleve.EleveId });
+            Absence absence = Manager.Instance.GetAllAbsences().LastOrDefault();
             Assert.AreEqual("Grippe", absence.Motif);
             Assert.AreEqual(DateTime.Now.Date, absence.DateAbsence);
 
             //Suppression de l'absence
-            monContexte.Classes.Remove(classe);
-            monContexte.Eleves.Remove(eleve);
-            monContexte.Absences.Remove(absence);
-            monContexte.SaveChanges();
+            Manager.Instance.DeleteAbsence(absence.AbsenceId);
             bool exist = monContexte.Absences.Where(abs => abs.AbsenceId == absence.AbsenceId).Any();
             Assert.AreEqual(false, exist);
         }
@@ -197,46 +179,41 @@ namespace UnitTest
         public void TestRemoveNote()
         {
             //Ajout classe pour élève
-            monContexte.Classes.Add(new Classe { Niveau = "CP", NomEtablissement = "test" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "test" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
 
-            //Ajout de l'élève pour la note
-            monContexte.Eleves.Add(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            monContexte.SaveChanges();
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();
+            //Ajout de l'élève
+            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
+            Assert.AreEqual("Bassinet", eleve.Nom);
+            Assert.AreEqual("Dylan", eleve.Prenom);
 
             //Ajout de la note
-            monContexte.Notes.Add(new Note { Matiere = "SVT", ValeurNote = 16, Appreciation = "Bon travail", DateNote = DateTime.Now, EleveId = eleve.EleveId });
-            monContexte.SaveChanges();
-            Note note = monContexte.Notes.ToList().LastOrDefault();
+            Manager.Instance.AddNote(new Note { Matiere = "SVT", ValeurNote = 16, Appreciation = "Bon travail", DateNote = DateTime.Now, EleveId = eleve.EleveId });
+            Note note = Manager.Instance.GetAllNotes().LastOrDefault();
             Assert.AreEqual("SVT", note.Matiere);
             Assert.AreEqual(16, note.ValeurNote);
 
             //Suppression de la note
-            monContexte.Classes.Remove(classe);
-            monContexte.Eleves.Remove(eleve);
-            monContexte.Notes.Remove(note);
-            monContexte.SaveChanges();
+            Manager.Instance.DeleteNote(note.NoteId);
             bool exist = monContexte.Notes.Where(n => n.NoteId == note.NoteId).Any();
             Assert.AreEqual(false, exist);
-        }
+        }*/
 
         [TestMethod]
         public void TestEditClasse()
         {
             //Ajout classe
-            monContexte.Classes.Add(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
             Assert.AreEqual("DUT", classe.Niveau);
             Assert.AreEqual("uca", classe.NomEtablissement);
 
             //Modification classe
             classe.Niveau = "term";
             classe.NomEtablissement = "Lycee";
-            monContexte.SaveChanges();
-            Classe expectedClass = monContexte.Classes.Where(c => c.ClassId == classe.ClassId).SingleOrDefault();
+            Manager.Instance.EditClasse(classe);
+            Classe expectedClass = Manager.Instance.GetClasseById(classe.ClassId);
             Assert.AreEqual(expectedClass.Niveau, classe.Niveau);
             Assert.AreEqual(expectedClass.NomEtablissement, classe.NomEtablissement);
 
@@ -245,22 +222,22 @@ namespace UnitTest
         [TestMethod]
         public void TestEditEleve()
         {
-            //Ajout élève
-            monContexte.Classes.Add(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            //Ajout classe
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
+            Assert.AreEqual("DUT", classe.Niveau);
+            Assert.AreEqual("uca", classe.NomEtablissement);
 
-            monContexte.Eleves.Add(new Eleve { Nom = "Kolac", Prenom = "Jean", DateNaissance = DateTime.Now.Date, ClassId = classe.ClassId });
-            monContexte.SaveChanges();
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();
+            Manager.Instance.AddEleve(new Eleve { Nom = "Kolac", Prenom = "Jean", DateNaissance = DateTime.Now.Date, ClassId = classe.ClassId });
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
             Assert.AreEqual("Kolac", eleve.Nom);
             Assert.AreEqual("Jean", eleve.Prenom);
 
             //Modification élève
             eleve.Nom = "Zidane";
             eleve.Prenom = "Zinedine";
-            monContexte.SaveChanges();
-            Eleve expectedEleve = monContexte.Eleves.Where(e => e.EleveId == eleve.EleveId).SingleOrDefault();
+            Manager.Instance.EditEleve(eleve);
+            Eleve expectedEleve = Manager.Instance.GetEleveById(eleve.EleveId);
             Assert.AreEqual(expectedEleve.Nom, eleve.Nom);
             Assert.AreEqual(expectedEleve.Prenom, eleve.Prenom);
         }
@@ -268,26 +245,27 @@ namespace UnitTest
         [TestMethod]
         public void TestEditAbsence()
         {
-            //Ajout absence
-            monContexte.Classes.Add(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            //Ajout classe
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
+            Assert.AreEqual("DUT", classe.Niveau);
+            Assert.AreEqual("uca", classe.NomEtablissement);
 
-            monContexte.Eleves.Add(new Eleve { Nom = "Kolac", Prenom = "Jean", DateNaissance = DateTime.Now.Date, ClassId = classe.ClassId });
-            monContexte.SaveChanges();
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();     
+            Manager.Instance.AddEleve(new Eleve { Nom = "Kolac", Prenom = "Jean", DateNaissance = DateTime.Now.Date, ClassId = classe.ClassId });
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
+            Assert.AreEqual("Kolac", eleve.Nom);
+            Assert.AreEqual("Jean", eleve.Prenom);
 
-            monContexte.Absences.Add(new Absence { Motif = "Otite", DateAbsence = DateTime.Now.Date, EleveId = eleve.EleveId });
-            monContexte.SaveChanges();
-            Absence absence = monContexte.Absences.ToList().LastOrDefault();
+            Manager.Instance.AddAbsence(new Absence { Motif = "Otite", DateAbsence = DateTime.Now.Date, EleveId = eleve.EleveId });
+            Absence absence = Manager.Instance.GetAllAbsences().LastOrDefault();
             Assert.AreEqual("Otite", absence.Motif);
             Assert.AreEqual(DateTime.Now.Date, absence.DateAbsence);
 
             //Modification absence
             absence.Motif = "Gastro";
             absence.DateAbsence = new DateTime(2020, 11, 21);
-            monContexte.SaveChanges();
-            Absence expectedAbsence = monContexte.Absences.Where(abs => abs.AbsenceId == absence.AbsenceId).SingleOrDefault();
+            Manager.Instance.EditAbsence(absence);
+            Absence expectedAbsence = Manager.Instance.GetAbsenceById(absence.AbsenceId);
             Assert.AreEqual(expectedAbsence.Motif, absence.Motif);
             Assert.AreEqual(expectedAbsence.DateAbsence, absence.DateAbsence);
         }
@@ -295,26 +273,26 @@ namespace UnitTest
         [TestMethod]
         public void TestEditNote()
         {
-            //Ajout note
-            monContexte.Classes.Add(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
-            monContexte.SaveChanges();
-            Classe classe = monContexte.Classes.ToList().LastOrDefault();
+            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "uca" });
+            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
+            Assert.AreEqual("DUT", classe.Niveau);
+            Assert.AreEqual("uca", classe.NomEtablissement);
 
-            monContexte.Eleves.Add(new Eleve { Nom = "Kolac", Prenom = "Jean", DateNaissance = DateTime.Now.Date, ClassId = classe.ClassId });
-            monContexte.SaveChanges();
-            Eleve eleve = monContexte.Eleves.ToList().LastOrDefault();
+            Manager.Instance.AddEleve(new Eleve { Nom = "Kolac", Prenom = "Jean", DateNaissance = DateTime.Now.Date, ClassId = classe.ClassId });
+            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
+            Assert.AreEqual("Kolac", eleve.Nom);
+            Assert.AreEqual("Jean", eleve.Prenom);
 
-            monContexte.Notes.Add(new Note { Matiere = "Histoire", ValeurNote = 12, Appreciation = "à améliorer", DateNote = DateTime.Now.Date, EleveId = eleve.EleveId });
-            monContexte.SaveChanges();
-            Note note = monContexte.Notes.ToList().LastOrDefault();
+            Manager.Instance.AddNote(new Note { Matiere = "Histoire", ValeurNote = 12, Appreciation = "à améliorer", DateNote = DateTime.Now.Date, EleveId = eleve.EleveId });
+            Note note = Manager.Instance.GetAllNotes().LastOrDefault();
             Assert.AreEqual("à améliorer", note.Appreciation);
             Assert.AreEqual(12, note.ValeurNote);
 
             //Modification note
             note.ValeurNote = 18;
             note.Appreciation = "très bien";
-            monContexte.SaveChanges();
-            Note expectedNote = monContexte.Notes.Where(n => n.NoteId == note.NoteId).SingleOrDefault();
+            Manager.Instance.EditNote(note);
+            Note expectedNote = Manager.Instance.GetNoteById(note.NoteId);
             Assert.AreEqual(expectedNote.ValeurNote, note.ValeurNote);
             Assert.AreEqual(expectedNote.Appreciation, note.Appreciation);
         }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace WebApplication.Models
 {
@@ -41,10 +38,5 @@ namespace WebApplication.Models
         /// Identifiant de l'élève noté
         /// </summary>
         public int EleveId { get; set; }
-
-        /// <summary>
-        /// Elève noté
-        /// </summary>
-        //public EleveViewModel Eleve { get; set; }
     }
 }

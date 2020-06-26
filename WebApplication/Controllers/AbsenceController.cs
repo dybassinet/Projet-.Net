@@ -10,6 +10,12 @@ namespace WebApplication.Controllers
 {
     public class AbsenceController : Controller
     {
+        /// <summary>
+        /// Retourne la vue de création/modification d'une absence
+        /// </summary>
+        /// <param name="absenceId">Identifiant de l'absence</param>
+        /// <param name="eleveId">Identifiant de l'élève</param>
+        /// <returns></returns>
         public ActionResult OpenViewEditAbsence(int absenceId, int eleveId)
         {
             if (absenceId == 0) //CREATION
@@ -67,6 +73,10 @@ namespace WebApplication.Controllers
             return RedirectToAction("DetailEleve", "Eleve", new { eleveId = eleveId });
         }
 
+        /// <summary>
+        /// Retourne une vue avec les 5 dernières absences
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> GetLastAbsences()
         {
             AbsenceAdapter absenceAdapter = new AbsenceAdapter();
