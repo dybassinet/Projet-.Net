@@ -26,6 +26,11 @@ namespace WebApplication.Controllers
             return View("EditNote", noteViewModel);
         }
 
+        /// <summary>
+        /// Modifie ou crée une note
+        /// </summary>
+        /// <param name="vm">Objet ViewModel <see cref="NoteViewModel"/></param>
+        /// <returns></returns>
         public ActionResult EditNote(NoteViewModel vm)
         {
             if (!ModelState.IsValid)
@@ -36,13 +41,13 @@ namespace WebApplication.Controllers
 
             NoteAdapter noteAdapter = new NoteAdapter();
             EleveAdapter eleveAdapter = new EleveAdapter();
-            if (vm.NoteId == 0)
+            if (vm.NoteId == 0) //Création
             {
                 Note note = new Note();
                 noteAdapter.ConvertToEntity(note, vm);
                 Manager.Instance.AddNote(note);
             }
-            else
+            else //Modification
             {
                 Note note = Manager.Instance.GetNoteById(vm.NoteId);
                 noteAdapter.ConvertToEntity(note, vm);
@@ -52,7 +57,19 @@ namespace WebApplication.Controllers
             Eleve eleve = Manager.Instance.GetEleveById(vm.EleveId);
             EleveViewModel eleveVM = eleveAdapter.ConvertToViewModel(eleve);
             //Notification succes
-            return RedirectToAction("DetailEleve", "Eleve", new { usePartial = false, eleveId = vm.EleveId });
+            return RedirectToAction("DetailEleve", "Eleve", new { eleveId = vm.EleveId });
+        }
+
+        /// <summary>
+        /// Supprime une note
+        /// </summary>
+        /// <param name="noteId">Identifiant de la note</param>
+        /// <param name="eleveId">Identifiant de l'élève</param>
+        /// <returns></returns>
+        public ActionResult DeleteNote(int noteId, int eleveId)
+        {
+            Manager.Instance.DeleteNote(noteId);
+            return RedirectToAction("DetailEleve", "Eleve", new { eleveId = eleveId });
         }
     }
 }

@@ -39,7 +39,8 @@ namespace BusinessLayer.Queries
         /// <returns>Entité <see cref="Eleve"/></returns>
         public Eleve GetById(int id)
         {
-            return _contexte.Eleves.Where(e => e.EleveId == id).Include(m => m.Absences).Include(m => m.Notes).SingleOrDefault();
+            return _contexte.Eleves.Where(e => e.EleveId == id).Include(m => m.Absences)
+                                                               .Include(m => m.Notes).SingleOrDefault();
         }
 
         /// <summary>

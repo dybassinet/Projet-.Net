@@ -10,29 +10,61 @@ namespace WebApplication.Controllers
 {
     public class AbsenceController : Controller
     {
-        // GET: Absence
-        public ActionResult AjoutAbsence(int eleveId)
+        public ActionResult OpenViewEditAbsence(int absenceId, int eleveId)
         {
-            return View(new AbsenceViewModel { EleveId = eleveId });
+            if (absenceId == 0) //CREATION
+            {
+                return View("EditAbsence", new AbsenceViewModel { EleveId = eleveId });
+            }
+
+            AbsenceAdapter absenceAdapter = new AbsenceAdapter();
+            Absence absence = Manager.Instance.GetAbsenceById(absenceId);
+            AbsenceViewModel absenceViewModel = absenceAdapter.ConvertToViewModel(absence);
+            return View("EditAbsence", absenceViewModel);
         }
 
-        public ActionResult CreerAbsence(AbsenceViewModel vm)
+        /// <summary>
+        /// Modifie ou crée une absence
+        /// </summary>
+        /// <param name="vm">Objet ViewModel <see cref="AbsenceViewModel"/></param>
+        /// <returns></returns>
+        public ActionResult EditAbsence(AbsenceViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                //Notification erreur
-                return View("AjoutAbsence", vm);
+                return View("EditAbsence", vm);
             }
 
             AbsenceAdapter absenceAdapter = new AbsenceAdapter();
             EleveAdapter eleveAdapter = new EleveAdapter();
-            Absence absence = new Absence();
-            absenceAdapter.ConvertToEntity(absence, vm);
-            Manager.Instance.AddAbsence(absence);
+            if (vm.AbsenceId == 0) //Création
+            {
+                Absence absence = new Absence();
+                absenceAdapter.ConvertToEntity(absence, vm);
+                Manager.Instance.AddAbsence(absence);
+            }
+            else //Modification
+            {
+                Absence absence = Manager.Instance.GetAbsenceById(vm.AbsenceId);
+                absenceAdapter.ConvertToEntity(absence, vm);
+                Manager.Instance.EditAbsence(absence);
+            }
+
             Eleve eleve = Manager.Instance.GetEleveById(vm.EleveId);
             EleveViewModel eleveVM = eleveAdapter.ConvertToViewModel(eleve);
-            //Notification succes
-            return RedirectToAction("DetailEleve", "Eleve", new { usePartial = false, eleveId = vm.EleveId });
+            return RedirectToAction("DetailEleve", "Eleve", new { eleveId = vm.EleveId });
+        }
+
+        /// <summary>
+        /// Supprime une absence
+        /// </summary>
+        /// <param name="absenceId">Identifiant de l'absence</param>
+        /// <param name="eleveId">Identifiant de l'élève</param>
+        /// <returns></returns>
+        public ActionResult DeleteAbsence(int absenceId, int eleveId)
+        {
+            Manager.Instance.DeleteAbsence(absenceId);
+            return RedirectToAction("DetailEleve", "Eleve", new { eleveId = eleveId });
         }
 
         public async Task<ActionResult> GetLastAbsences()

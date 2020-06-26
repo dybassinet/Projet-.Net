@@ -1,33 +1,49 @@
 ﻿@using WebApplication.Models;
 @model EleveViewModel
+@Scripts.Render("~/Scripts/umd/popper.js")
 
 <div id="content">
     <div class="form-group">
-        @Html.Label("Nom : ", new { @class = "col-sm-4"})
-        @Html.TextBoxFor(m => m.Nom, new { @class = "col-sm-8 form-control" })
+        @Html.Label("Nom : ", new { @class = "col-sm-4" })
+        @Html.TextBoxFor(m => m.Nom, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
     </div>
     <div class="form-group">
         @Html.Label("Prénom : ", new { @class = "col-sm-4" })
-        @Html.TextBoxFor(m => m.Prenom, new { @class = "col-sm-8 form-control" })
+        @Html.TextBoxFor(m => m.Prenom, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
     </div>
     <div class="form-group">
         @Html.Label("Moyenne : ", new { @class = "col-sm-4" })
-        @Html.TextBoxFor(m => m.Moyenne, new { @class = "col-sm-8 form-control" })
+        @Html.TextBoxFor(m => m.Moyenne, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
     </div>
     <table class="table table-bordered">
         <tr>
             <th>Date de l'absence</th>
             <th>Motif</th>
             <th>
-                <a class="btn btn-primary" href="@Url.Action("AjoutAbsence", "Absence", new { eleveId = Model.EleveId })">Ajouter absence</a>
+                <a class="btn btn-primary" href="@Url.Action("OpenViewEditAbsence", "Absence", new { absenceId = 0, eleveId = Model.EleveId })">Ajouter absence</a>
             </th>
         </tr>
-        @foreach (AbsenceViewModel vm in Model.Absences)
+        @foreach (AbsenceViewModel vm in Model.Absences.OrderByDescending(abs => abs.DateAbsence))
         {
-            <tr>
-                <td>@vm.DateAbsence.ToString("dd/MM/yyyy")</td>
-                <td>@vm.Motif</td>
-            </tr>
+        <tr>
+            <td>@vm.DateAbsence.ToString("dd/MM/yyyy")</td>
+            <td>@vm.Motif</td>
+            <td>
+                <!-- Split button -->
+                <div class="btn-group">
+                    <!-- here is the asp.net button to make post back -->
+                    <asp:Button ID="Button1" runat="server" Text="Action" CssClass="btn btn-danger" />
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret">Action</span>
+                        <span class="sr-only"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="btn btn-primary col-sm-12 form-group" href="@Url.Action("OpenViewEditAbsence", "Absence", new { absenceId = vm.AbsenceId, eleveId = Model.EleveId })">Modifier</a></li>
+                        <li><a class="btn btn-primary col-sm-12" href="@Url.Action("DeleteAbsence", "Absence", new { absenceId = vm.AbsenceId, eleveId = Model.EleveId })">Supprimer</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
         }
     </table>
 
@@ -43,7 +59,7 @@
         </tr>
         @if (Model.Notes != null)
         {
-            foreach (NoteViewModel vm in Model.Notes)
+            foreach (NoteViewModel vm in Model.Notes.OrderByDescending(n => n.DateNote))
             {
                 <tr>
                     <td>@vm.DateNote.ToString("dd/MM/yyyy")</td>
@@ -51,7 +67,19 @@
                     <td>@vm.ValeurNote</td>
                     <td>@vm.Appreciation</td>
                     <td>
-                        <a class="btn btn-primary" href="@Url.Action("OpenViewEditNote", "Note", new { noteId = vm.NoteId, eleveId = Model.EleveId })">Modifier</a>
+                        <!-- Split button -->
+                        <div class="btn-group">
+                            <!-- here is the asp.net button to make post back -->
+                            <asp:Button ID="Button1" runat="server" Text="Action" CssClass="btn btn-danger" />
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret">Action</span>
+                                <span class="sr-only"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a class="btn btn-primary col-sm-12 form-group" href="@Url.Action("OpenViewEditNote", "Note", new { noteId = vm.NoteId, eleveId = Model.EleveId })">Modifier</a></li>
+                                <li><a class="btn btn-primary col-sm-12" href="@Url.Action("DeleteNote", "Note", new { noteId = vm.NoteId, eleveId = Model.EleveId })">Supprimer</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             }

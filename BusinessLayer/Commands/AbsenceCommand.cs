@@ -22,5 +22,23 @@ namespace BusinessLayer.Commands
             _contexte.Absences.Add(absence);
             _contexte.SaveChanges();
         }
+
+        public void Edit(Absence absence)
+        {
+            Absence actualAbsence = _contexte.Absences.Where(abs => abs.AbsenceId == absence.AbsenceId).SingleOrDefault();
+            if (actualAbsence != null)
+            {
+                actualAbsence.DateAbsence = absence.DateAbsence;
+                actualAbsence.Motif = absence.Motif;
+            }
+
+            _contexte.SaveChanges();
+        }
+
+        public void Delete(int absenceId)
+        {
+            Absence absence = _contexte.Absences.Where(abs => abs.AbsenceId == absenceId).SingleOrDefault();
+            _contexte.Absences.Remove(absence);
+        }
     }
 }

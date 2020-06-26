@@ -1,8 +1,9 @@
 ﻿@using WebApplication.Models;
 @model AbsenceViewModel
 
-@using (Html.BeginForm("CreerAbsence", "Absence"))
+@using (Html.BeginForm("EditAbsence", "Absence"))
 {
+    @Html.HiddenFor(m => m.AbsenceId)
     @Html.HiddenFor(m => m.EleveId)
     <div class="form-group">
         @Html.LabelFor(m => m.DateAbsence)

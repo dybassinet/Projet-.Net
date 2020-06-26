@@ -179,6 +179,16 @@ namespace BusinessLayer
             noteCommand.Edit(note);
         }
 
+        /// <summary>
+        /// Supprime une note
+        /// </summary>
+        /// <param name="noteId">Identifiant de la note</param>
+        public void DeleteNote(int noteId)
+        {
+            NoteCommand noteCommand = new NoteCommand(monContexte);
+            noteCommand.Delete(noteId);
+        }
+
         #endregion
 
         #region Absences
@@ -249,6 +259,26 @@ namespace BusinessLayer
         {
             AbsenceCommand absenceCommand = new AbsenceCommand(monContexte);
             absenceCommand.Add(absence);
+        }
+
+        /// <summary>
+        /// Modifie une absence
+        /// </summary>
+        /// <param name="absence">Absence</param>
+        public void EditAbsence(Absence absence)
+        {
+            AbsenceCommand absenceCommand = new AbsenceCommand(monContexte);
+            absenceCommand.Edit(absence);
+        }
+
+        /// <summary>
+        /// Supprime une absence
+        /// </summary>
+        /// <param name="absenceId">Identifiant de l'absence</param>
+        public void DeleteAbsence(int absenceId)
+        {
+            AbsenceCommand absenceCommand = new AbsenceCommand(monContexte);
+            absenceCommand.Delete(absenceId);
         }
 
         #endregion

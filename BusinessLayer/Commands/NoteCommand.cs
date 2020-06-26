@@ -36,5 +36,11 @@ namespace BusinessLayer.Commands
 
             _contexte.SaveChanges();
         }
+
+        public void Delete(int noteId)
+        {
+            Note note = _contexte.Notes.Where(n => n.NoteId == noteId).SingleOrDefault();
+            _contexte.Notes.Remove(note);
+        }
     }
 }
