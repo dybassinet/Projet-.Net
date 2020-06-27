@@ -3,7 +3,14 @@
 
 
 <div id="content">
-    <h2>@Model.NomEtablissement - @Model.Niveau</h2>
+    <div class="form-group">
+        @Html.LabelFor(m => m.NomEtablissement, new { @class = "col-sm-4" })
+        @Html.TextBoxFor(m => m.NomEtablissement, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Niveau, new { @class = "col-sm-4" })
+        @Html.TextBoxFor(m => m.Niveau, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
+    </div>
 
     <table class="table table-bordered">
         <tr>
@@ -13,14 +20,14 @@
         </tr>
         @foreach (EleveViewModel vm in Model.Eleves)
         {
-        <tr>
-            <td>@vm.Nom</td>
-            <td>@vm.Prenom</td>
-            <td>@vm.DateNaissance.ToString("dd/MM/yyyy")</td>
-            <td>
-                <a class="btn btn-primary" href="@Url.Action("DetailEleve", "Eleve", new { eleveId = vm.EleveId })">Détail</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@vm.Nom</td>
+                <td>@vm.Prenom</td>
+                <td>@vm.DateNaissance.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("DetailEleve", "Eleve", new { eleveId = vm.EleveId })">Détail</a>
+                </td>
+            </tr>
         }
     </table>
 </div>

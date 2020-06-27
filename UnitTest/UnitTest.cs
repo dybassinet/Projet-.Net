@@ -150,56 +150,6 @@ namespace UnitTest
             Assert.AreEqual(false, exist);
         }
 
-        /*[TestMethod]
-        public void TestRemoveAbsence()
-        {
-            //Ajout classe pour élève
-            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "test" });
-            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
-
-            //Ajout de l'élève
-            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
-            Assert.AreEqual("Bassinet", eleve.Nom);
-            Assert.AreEqual("Dylan", eleve.Prenom);
-
-            //Ajout de l'absence
-            Manager.Instance.AddAbsence(new Absence { Motif = "Grippe", DateAbsence = DateTime.Now.Date, EleveId = eleve.EleveId });
-            Absence absence = Manager.Instance.GetAllAbsences().LastOrDefault();
-            Assert.AreEqual("Grippe", absence.Motif);
-            Assert.AreEqual(DateTime.Now.Date, absence.DateAbsence);
-
-            //Suppression de l'absence
-            Manager.Instance.DeleteAbsence(absence.AbsenceId);
-            bool exist = monContexte.Absences.Where(abs => abs.AbsenceId == absence.AbsenceId).Any();
-            Assert.AreEqual(false, exist);
-        }
-
-        [TestMethod]
-        public void TestRemoveNote()
-        {
-            //Ajout classe pour élève
-            Manager.Instance.AddClasse(new Classe { Niveau = "DUT", NomEtablissement = "test" });
-            Classe classe = Manager.Instance.GetAllClasses().LastOrDefault();
-
-            //Ajout de l'élève
-            Manager.Instance.AddEleve(new Eleve { Nom = "Bassinet", Prenom = "Dylan", DateNaissance = new DateTime(1999, 3, 1), ClassId = classe.ClassId });
-            Eleve eleve = Manager.Instance.GetAllEleves("").LastOrDefault();
-            Assert.AreEqual("Bassinet", eleve.Nom);
-            Assert.AreEqual("Dylan", eleve.Prenom);
-
-            //Ajout de la note
-            Manager.Instance.AddNote(new Note { Matiere = "SVT", ValeurNote = 16, Appreciation = "Bon travail", DateNote = DateTime.Now, EleveId = eleve.EleveId });
-            Note note = Manager.Instance.GetAllNotes().LastOrDefault();
-            Assert.AreEqual("SVT", note.Matiere);
-            Assert.AreEqual(16, note.ValeurNote);
-
-            //Suppression de la note
-            Manager.Instance.DeleteNote(note.NoteId);
-            bool exist = monContexte.Notes.Where(n => n.NoteId == note.NoteId).Any();
-            Assert.AreEqual(false, exist);
-        }*/
-
         [TestMethod]
         public void TestEditClasse()
         {

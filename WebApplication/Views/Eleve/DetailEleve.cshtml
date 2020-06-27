@@ -4,15 +4,15 @@
 
 <div id="content">
     <div class="form-group">
-        @Html.Label("Nom : ", new { @class = "col-sm-4" })
+        @Html.LabelFor(m => m.Nom, new { @class = "col-sm-4" })
         @Html.TextBoxFor(m => m.Nom, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
     </div>
     <div class="form-group">
-        @Html.Label("Prénom : ", new { @class = "col-sm-4" })
+        @Html.LabelFor(m => m.Prenom, new { @class = "col-sm-4" })
         @Html.TextBoxFor(m => m.Prenom, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
     </div>
     <div class="form-group">
-        @Html.Label("Moyenne : ", new { @class = "col-sm-4" })
+        @Html.LabelFor(m => m.Moyenne, new { @class = "col-sm-4" })
         @Html.TextBoxFor(m => m.Moyenne, new { @class = "col-sm-8 form-control", @readonly = "readonly" })
     </div>
     <table class="table table-bordered">

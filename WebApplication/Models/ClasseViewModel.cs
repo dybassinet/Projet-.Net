@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.Models
 {
@@ -12,6 +13,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Nom de l'établissement
         /// </summary>
+        [Display(Name = "Nom de l'établissement")]
         public string NomEtablissement { get; set; }
 
         /// <summary>

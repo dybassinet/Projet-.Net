@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.Models
 {
@@ -18,6 +19,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Prénom de l'élève
         /// </summary>
+        [Display(Name = "Prénom")]
         public string Prenom { get; set; }
 
         /// <summary>
